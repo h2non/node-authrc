@@ -20,3 +20,9 @@ describe 'Authrc: ', ->
         username: 'philip'
         password: 'unbreakablepassword'
       });
+
+    it 'should return the auth credentials for the given IP', ->
+      expect(auth.getAuth('https://10.0.0.2:8443')).to.deep.equal({ 
+        username: 'philip'
+        password: 'unbreakablepassword'
+      });
