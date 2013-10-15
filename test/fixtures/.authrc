@@ -7,6 +7,10 @@
         "username": "philip",
         "password": "unbreakablepassword"
     },
+    "git.server.org:8443/resource": {
+        "username": "tim",
+        "password": "unbreakablepassword"
+    },
     "10.0.0.2": {
         "username": "michael",
         "password": "unbreakablepassword"
