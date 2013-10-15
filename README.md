@@ -33,40 +33,41 @@ auth.getAuthUrl('https://myserver.org:8443');
 
 #### new Authrc (filepath[String])
 
-Creates a new Bintray instance for working with the API
-
 ```js
 var Authrc = require('authrc')
 
 var auth = new Authrc('file/to/authrc');
 ```
 
-Available config options:
-
-* `username` [String] Bintray username
-* `apikey` [String] Bintray API key token
-* `organization` [String] Bintray organization or subject identifier
-* `repository` [String] Repository name to use
-* `debug` [Boolean] Enables de console verbose mode
-* `baseUrl` [String] REST API base URL (just for testing)
-
-You can get the current API version from the following static Object property
-
+Get the authrc version spec
 ```js
-Bintray.apiVersion // "1.0"
+auth.version
 ```
 
-#### getRepositories()
+#### getAuth (hostOrUrl)
 
-Get a list of repos writeable by subject (personal or organizational) This resource does not require authentication
+Search the given string and returns an `Object` with the username and password for the given hostname/URL
 
-[Link to documentation](https://bintray.com/docs/api.html#_get_repositories)
+#### getAuthUrl (hostOrUrl)
 
-#### getRepository ()
+Search the given string and returns the full URL with the authenticacion credentials
+
+#### getAuthrc ()
+
+Returns the first .authrc data contents found on the system.
+
+The authrc file search process algorithm will do the following:
+
+1.0 Try to find on the current working directory
+1.1 If found, read the file and return the result
+1.2 If not found, fallback to $HOME
+2. Try to search the file in $HOME
+2.1 If found, read it and return the content
+2.2 If not found, return `null` and exit
 
 ## Release History
 
-- 0.1.0 `15.10.2013`
+- 0.1.0 `16.10.2013`
   * Initial version
 
 ## TODO
