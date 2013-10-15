@@ -1,10 +1,10 @@
-# authrc Node.js [![Build Status](https://secure.travis-ci.org/h2non/authrc.png?branch=master)](http://travis-ci.org/h2non/authrc)
+# authrc for node [![Build Status](https://secure.travis-ci.org/h2non/authrc-node.png?branch=master)](http://travis-ci.org/h2non/authrc-node)
 
-[authrc](http://github.com/adesisnetlife/authrc) specification implementation for Node.js
+[authrc](http://github.com/adesisnetlife/authrc) specification implementation for Node
 
-The implementation based on the authrc specification version `0.1`
+The implementation is based on the authrc specification version `0.1`
 
-`Note that still an alpha implementation`
+`Note that this is still an alpha implementation`
 
 ## Getting Started
 
