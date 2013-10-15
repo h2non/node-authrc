@@ -1,0 +1,51 @@
+{
+  "name": "authrc",
+  "version": "0.1.0",
+  "description": "authrc implementation for Node.js",
+  "homepage": "http://github.com/h2non/node-authrc",
+  "bugs": "https://github.com/h2non/authrc/issues",
+  "author": {
+    "name": "Tomas Aparicio",
+    "email": "tomas@aparicio.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h2non/authrc"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "main": "lib/authrc.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "authentication",
+    "server",
+    "bower",
+    "npm",
+    "auth",
+    "configuration",
+    "git"
+  ],
+  "dependencies": {
+    "diff": "~1.0.7"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-mocha-cli": "~1.0.3",
+    "coffee-script": "~1.6.2",
+    "grunt-contrib-watch": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-coffeelint": "~0.0.7",
+    "matchdep": "~0.1.2",
+    "mocha-cakes": "~0.9.0",
+    "grunt": "~0.4.1",
+    "chai": "~1.8.1"
+  }
+}

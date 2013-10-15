@@ -1,0 +1,18 @@
+{
+    "git.server.org": {
+        "username": "john",
+        "password": "unbreakablepassword"
+    },
+    "git.server.org:8443": {
+        "username": "philip",
+        "password": "unbreakablepassword"
+    },
+    "10.0.0.2": {
+        "username": "michael",
+        "password": "unbreakablepassword"
+    },
+    "notld": {
+        "username": "dennis",
+        "password": "$up€r_$3crEt_%?"
+    }
+}
