@@ -57,7 +57,7 @@ Search the given string and return the full URL with the authenticacion credenti
 
 Return the first .authrc data contents found on the system.
 
-The authrc file search process algorithm will do the following:
+The authrc file search process algorithm will do what follows:
 
 ```
 1.0 Try to find .authrc file on the current working directory
