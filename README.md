@@ -17,8 +17,9 @@ npm install authrc
 Use it:
 
 ```javascript
-var AuthCredentials = require('authrc');
-var auth = new AuthCredentials();
+var Authrc = require('authrc');
+
+var auth = new Authrc();
 
 auth.getAuth('http://myserver.org');
 // { username: 'john', password: 'pa$sw0rd' }
@@ -36,25 +37,25 @@ auth.getAuthUrl('https://myserver.org:8443');
 ```js
 var Authrc = require('authrc')
 
-var auth = new Authrc('file/to/authrc');
+var auth = new Authrc('file/to/.authrc');
 ```
 
 Get the authrc version spec
 ```js
-auth.version
+auth.version // '0.1'
 ```
 
 #### getAuth (hostOrUrl)
 
-Search the given string and returns an `Object` with the username and password for the given hostname/URL
+Search the given string and return an `Object` with the username and password for the given hostname/URL
 
 #### getAuthUrl (hostOrUrl)
 
-Search the given string and returns the full URL with the authenticacion credentials
+Search the given string and return the full URL with the authenticacion credentials
 
 #### getAuthrc ()
 
-Returns the first .authrc data contents found on the system.
+Return the first .authrc data contents found on the system.
 
 The authrc file search process algorithm will do the following:
 
