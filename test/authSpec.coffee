@@ -1,7 +1,7 @@
 { expect, should } = require '../node_modules/chai/chai'
 Authrc = require '../lib/authrc'
 
-describe 'Authrc: ', ->
+describe 'Authrc', ->
 
   describe 'authrc file path', ->
     auth = null
@@ -26,3 +26,23 @@ describe 'Authrc: ', ->
         username: 'michael'
         password: 'unbreakablepassword'
       });
+
+  describe 'authrc file autodiscover based on the current directory', ->
+    auth = null
+    cwd = process.cwd()
+
+    beforeEach -> 
+      process.chdir(__dirname + '/fixtures/')
+      auth = new Authrc()
+
+    afterEach ->
+      process.chdir(cwd)
+
+    it 'should return the auth for the given hostname', ->
+      expect(auth.getAuth('http://git.server.org')).to.deep.equal({ 
+        username: 'john'
+        password: 'unbreakablepassword'
+      });
+
+  # more test in progress...
+  
