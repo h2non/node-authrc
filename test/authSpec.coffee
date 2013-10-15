@@ -9,20 +9,20 @@ describe 'Authrc: ', ->
     beforeEach -> 
       auth = new Authrc('test/fixtures/.authrc')
 
-    it 'should return the auth credentials for the hostname', ->
+    it 'should return the auth for the given hostname', ->
       expect(auth.getAuth('http://git.server.org')).to.deep.equal({ 
         username: 'john'
         password: 'unbreakablepassword'
       });
 
-    it 'should return the auth credentials for the hostname and port', ->
+    it 'should return the auth for the given hostname and port', ->
       expect(auth.getAuth('https://git.server.org:8443')).to.deep.equal({ 
         username: 'philip'
         password: 'unbreakablepassword'
       });
 
-    it 'should return the auth credentials for the given IP', ->
+    it 'should return the auth for the given IP', ->
       expect(auth.getAuth('https://10.0.0.2:8443')).to.deep.equal({ 
-        username: 'philip'
+        username: 'michael'
         password: 'unbreakablepassword'
       });

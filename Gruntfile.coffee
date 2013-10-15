@@ -33,7 +33,7 @@ module.exports = (grunt) ->
     coffee:
       lib:
         expand: true
-        cwd: 'src/lib/'
+        cwd: 'src/'
         src: ['**/*.coffee']
         dest: 'lib/'
         ext: '.js'
@@ -63,7 +63,7 @@ module.exports = (grunt) ->
         files: 'Gruntfile.coffee'
         tasks: ['coffeelint:gruntfile']
       lib:
-        files: ['src/lib/**/*.coffee']
+        files: ['src/**/*.coffee']
         tasks: ['coffeelint:lib', 'coffee:lib', 'simplemocha']
       test:
         files: ['src/test/**/*.coffee']
