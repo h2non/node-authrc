@@ -14,7 +14,7 @@ Install the package via NPM:
 npm install authrc
 ```
 
-Start using it!
+Use it:
 
 ```javascript
 var AuthCredentials = require('authrc');
@@ -31,7 +31,7 @@ auth.getAuthUrl('https://myserver.org:8443');
 
 ## Constructor
 
-#### new Authrc (filepath[String])
+#### new Authrc (filepath[String]?)
 
 ```js
 var Authrc = require('authrc')
@@ -59,10 +59,10 @@ Returns the first .authrc data contents found on the system.
 The authrc file search process algorithm will do the following:
 
 ```
-1.0 Try to find on the current working directory
+1.0 Try to find .authrc file on the current working directory
  1.1 If found, read the file and return the result
  1.2 If not found, fallback to $HOME
-2. Try to search the file in $HOME
+2. Try to find .authrc file in $HOME directory
  2.1 If found, read it and return the content
  2.2 If not found, return `null` and exit
 ```
