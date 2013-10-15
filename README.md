@@ -40,9 +40,9 @@ var Authrc = require('authrc')
 var auth = new Authrc('file/to/.authrc');
 ```
 
-Get the authrc version spec
+Get the authrc supported version spec
 ```js
-auth.version // '0.1'
+Authrc.version // '0.1'
 ```
 
 #### getAuth (hostOrUrl)
