@@ -58,12 +58,14 @@ Returns the first .authrc data contents found on the system.
 
 The authrc file search process algorithm will do the following:
 
+```
 1.0 Try to find on the current working directory
-1.1 If found, read the file and return the result
-1.2 If not found, fallback to $HOME
+ 1.1 If found, read the file and return the result
+ 1.2 If not found, fallback to $HOME
 2. Try to search the file in $HOME
-2.1 If found, read it and return the content
-2.2 If not found, return `null` and exit
+ 2.1 If found, read it and return the content
+ 2.2 If not found, return `null` and exit
+```
 
 ## Release History
 
