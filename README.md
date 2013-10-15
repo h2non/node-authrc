@@ -30,7 +30,7 @@ auth.getAuthUrl('https://myserver.org:8443');
 
 ## API
 
-## Constructor
+### Constructor
 
 #### new Authrc (filepath[String]?)
 
