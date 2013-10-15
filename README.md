@@ -1,4 +1,4 @@
-# authrc for node [![Build Status](https://secure.travis-ci.org/h2non/authrc-node.png?branch=master)](http://travis-ci.org/h2non/authrc-node)
+# authrc for node [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
 
 [authrc](http://github.com/adesisnetlife/authrc) specification implementation for Node
 
