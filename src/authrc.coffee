@@ -17,12 +17,10 @@ path = require 'path'
 module.exports = class
   @version: version
 
-  cwd: process.cwd()
   file: null
   data: {} 
 
-  constructor: (filepath, cwd) ->
-    @cwd = cwd if cwd
+  constructor: (filepath) ->
     @file = path.normalize(filepath) if filepath
 
     if filepath and fs.existsSync(filepath)
