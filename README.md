@@ -29,7 +29,7 @@ auth.getAuthUrl('https://myserver.org:8443');
 
 ## API
 
-`TODO`
+
 
 ## Release History
 
