@@ -12,16 +12,16 @@ module.exports = class HostAuth
     @data = data if data
     @host = matchHost(@data, host) if host
 
-  exists: ->
-    @data isnt null and @host isnt null
-
   getValues: ->
-    @data[@host] unless @data
+    @data[@host] if @data
 
+  exists: ->
+    @data isnt null and @host isnt null and @getValues()?.password?
+  
   getAuth: () ->
     return null unless @exists()
 
-    { username, password, cipher } = @data[@host]
+    { username, password, cipher } = @getValues()
     auth = {
       username: username,
       password: password
