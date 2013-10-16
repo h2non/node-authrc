@@ -21,8 +21,7 @@ var Authrc = require('authrc');
 
 var auth = new Authrc();
 
-auth.getAuth('http://myserver.org');
-// { username: 'john', password: 'pa$sw0rd' }
+auth.get('http://myserver.org');
 
 auth.getAuthUrl('https://myserver.org:8443');
 // https://john:pa$sw0rd@myserver.org:8443
@@ -36,7 +35,6 @@ auth.getAuthUrl('https://myserver.org:8443');
 
 ```js
 var Authrc = require('authrc')
-
 var auth = new Authrc('file/to/.authrc');
 ```
 
@@ -45,13 +43,11 @@ Get the authrc supported version spec
 Authrc.version // '0.1'
 ```
 
-#### getAuth (hostOrUrl)
+#### get (hostOrUrl)
 
 Search the given string and return an `Object` with the username and password for the given hostname/URL
 
-#### getAuthUrl (hostOrUrl)
-
-Search the given string and return the full URL with the authenticacion credentials
+Returns: `HostAuth Object`
 
 #### getAuthrc ()
 
@@ -67,6 +63,20 @@ The authrc file search process algorithm will do what follows:
  2.1 If found, read it and return the content
  2.2 If not found, return `null` and exit
 ```
+
+### HostAuth Object
+
+#### getAuth ()
+
+Returns an `Object` with the autentication credentials
+
+#### getAuthUrl ()
+
+Search the given string and return the full URL with the authenticacion credentials
+
+#### exists ()
+
+Return true if the host/url was found and credentials exists
 
 ## Release History
 
