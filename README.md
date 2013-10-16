@@ -92,7 +92,7 @@ Return a String with the decrypted password. Key argument is required
 
 #### host
 
-Store the current host
+Store the current authentication config host
 
 ## Release History
 

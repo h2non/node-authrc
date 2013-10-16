@@ -1,11 +1,12 @@
 crypto = require 'crypto'
+ciphers = require './ciphers'
 { lowerCase } = require './common'
 
 module.exports = 
 
   default: 'aes256'
 
-  ciphers: crypto.getCiphers()
+  ciphers: ciphers
 
   algorithmExists: (algorithm) ->
     @ciphers.indexOf(lowerCase(algorithm)) isnt -1
