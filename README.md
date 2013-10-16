@@ -96,6 +96,10 @@ Store the current host
 
 ## Release History
 
+- 0.1.1 `17.10.2013`
+  * API changes. Refactoring 
+  * Added initial support for encrypted passwords
+
 - 0.1.0 `16.10.2013`
   * Initial version
 
