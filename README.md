@@ -45,7 +45,7 @@ Authrc.version // '0.1'
 
 #### get (hostOrUrl)
 
-Search the given string and return an `Object` with the username and password for the given hostname/URL
+Search the given string in .authrc config file
 
 Returns: `HostAuth Object`
 
@@ -76,7 +76,23 @@ Search the given string and return the full URL with the authenticacion credenti
 
 #### exists ()
 
-Return true if the host/url was found and credentials exists
+Return true if the host/url was found and credentials data exists
+
+#### getValues ()
+
+Return an `Object` with the found config values
+
+#### isEncrypted ()
+
+Return `true` if the password for the given host is encrypted
+
+#### decrypt (key[String])
+
+Return a String with the decrypted password. Key argument is required
+
+#### host
+
+Store the current host
 
 ## Release History
 
