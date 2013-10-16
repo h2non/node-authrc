@@ -16,7 +16,7 @@ module.exports = (obj, string) ->
     .forEach (host) ->
       diffLength = diffChars(host, string).length
       differences = diffLength unless differences
-      if diffLength <= differences and match.password
+      if diffLength <= differences
         match = host
         differences = diffLength
 
