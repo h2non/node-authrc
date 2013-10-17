@@ -56,11 +56,11 @@ Return the first .authrc data contents found on the system.
 The authrc file search process algorithm will do what follows:
 
 ```
-1.0 Try to find .authrc file on the current working directory
- 1.1 If found, read the file and return the result
+1. Try to find .authrc file on the current working directory
+ 1.1 If found, read the file, parse the content and return it
  1.2 If not found, fallback to $HOME
 2. Try to find .authrc file in $HOME directory
- 2.1 If found, read it and return the content
+ 2.1 If found, read the file, parse the content and return it
  2.2 If not found, return `null` and exit
 ```
 
