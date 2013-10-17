@@ -43,7 +43,7 @@ Authrc.version // '0.1'
 
 Return `true if the .authrc file was found and config exists
 
-#### get (hostOrUrl)
+#### get (hostOrUrl[String])
 
 Search the given string in .authrc config file
 
