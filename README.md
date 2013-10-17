@@ -113,6 +113,8 @@ Store the authentication config `Object` for the given host
 
 ## TODO
 
+- Support for create and save new config values
+- Better support for password encryption
 - Add CLI support
 - Add more test cases
 
