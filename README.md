@@ -41,7 +41,7 @@ Authrc.version // '0.1'
 ```
 #### exists ()
 
-Return `true` if the .authrc file was found and config exists
+Return `true if the .authrc file was found and config exists
 
 #### get (hostOrUrl)
 
@@ -100,7 +100,7 @@ Return a `String` with the encrypted password. Key argument is required
 
 #### host
 
-Store the current authentication config host
+Store the authentication config `Object` for the given host
 
 ## Release History
 
