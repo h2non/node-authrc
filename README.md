@@ -11,7 +11,7 @@ The implementation is based on the authrc specification version `0.1`
 Install the package via NPM: 
 
 ```
-npm install authrc
+$ npm install authrc
 ```
 
 Use it:
