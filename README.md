@@ -39,18 +39,25 @@ Get the authrc supported version spec
 ```js
 Authrc.version // '0.1'
 ```
+#### exists ()
+
+Return `true if the .authrc file was found and config exists
 
 #### get (hostOrUrl)
 
 Search the given string in .authrc config file
 
-Returns: `HostAuth Object`
+Return `HostAuth Object`
 
-#### getAuthrc ()
+#### getHosts ()
+
+Return an `Array` the hosts defined in the .authrc file
+
+#### getContents ()
 
 Return the first .authrc data contents found on the system.
 
-The authrc file search process algorithm will do what follows:
+The authrc file search algorithm will do what follows:
 
 ```
 1. Try to find .authrc file on the current working directory
@@ -85,7 +92,11 @@ Return `true` if the password for the given host is encrypted
 
 #### decrypt (key[String])
 
-Return a String with the decrypted password. Key argument is required
+Return a `String` with the decrypted password. Key argument is required
+
+#### encrypt (key[String], algorithm[String])
+
+Return a `String` with the encrypted password. Key argument is required
 
 #### host
 

@@ -47,3 +47,9 @@ module.exports = class HostAuth
     { cipher, password } = @getAuth()
     crypto.decrypt(password, key, cipher)
 
+  encrypt: (key, algorithm) ->
+    return null unless @exists()
+    { password } = @getAuth()
+    crypto.encrypt(password, key, algorithm)
+
+

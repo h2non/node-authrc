@@ -34,6 +34,15 @@ module.exports = class
   get: (host, data = @data) ->
     new HostAuth(data, host)
 
+  getContents: ->
+    @data
+
+  getHosts: ->
+    Object.keys(@data)
+
+  exists: ->
+    Object.keys(@data).length isnt 0;
+
 getLocalFilePath = (filePath) ->
   path.join path.dirname(filePath) or process.cwd(), authRcFile
 
