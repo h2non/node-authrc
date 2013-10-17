@@ -3,7 +3,7 @@ crypto = require './crypto'
 { parseUri, formatUri } = require './common'
 matchHost = require './matchhost'
 
-module.exports = class HostAuth
+module.exports = class AuthConfig
 
   data: null
   host: null
@@ -18,7 +18,7 @@ module.exports = class HostAuth
   exists: ->
     @data isnt null and @host isnt null and @getValues()?.password?
   
-  getAuth: () ->
+  getAuth: ->
     return null unless @exists()
 
     { username, password, cipher } = @getValues()

@@ -19,5 +19,13 @@
     "notld": {
         "username": "dennis",
         "password": "$up€r_$3crEt_%?"
+    },
+    "http://my.server.org/some/resource": {
+        "username": "will",
+        "password": {
+            "env": "MY_SUPER_PASSWORD",
+            "encoding": "utf8",
+            "cipher": "blowfish"
+        }
     }
 }
