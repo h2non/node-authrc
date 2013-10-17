@@ -18,12 +18,9 @@ Use it:
 
 ```javascript
 var Authrc = require('authrc');
-
 var auth = new Authrc();
 
-auth.get('http://myserver.org');
-
-auth.getAuthUrl('https://myserver.org:8443');
+auth.get('http://myserver.org').getAuthUrl();
 // https://john:pa$sw0rd@myserver.org:8443
 ```
 
