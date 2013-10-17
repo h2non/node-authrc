@@ -41,7 +41,7 @@ Authrc.version // '0.1'
 ```
 #### exists ()
 
-Return `true if the .authrc file was found and config exists
+Return `true` if the .authrc file was found and config exists
 
 #### get (hostOrUrl)
 
