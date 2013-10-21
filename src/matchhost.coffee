@@ -1,4 +1,4 @@
-{ diffChars } = require 'diff'
+{ diffChars } = require './diff'
 { isUri, formatUri, parseUri } = require './common'
 
 module.exports = (obj, string) ->

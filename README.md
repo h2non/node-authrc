@@ -4,7 +4,7 @@
 
 The implementation is based on the authrc specification version `0.1`
 
-`Note that this is still an alpha implementation`
+`Note that this is still an alpha implementation, work in process`
 
 ## Getting Started
 
@@ -104,11 +104,17 @@ Store the authentication config `Object` for the given host
 
 ## Release History
 
-- 0.1.1 `17.10.2013`
+- 0.0.3 `21.10.2013`
+  * Notorious API changes. Refactoring 
+  * Improved support for password encryption
+  * Removed external dependency for strings diff algorithm implementation
+  * Added config file watcher (experimental)
+
+- 0.0.1 `17.10.2013`
   * API changes. Refactoring 
   * Added initial support for encrypted passwords
 
-- 0.1.0 `16.10.2013`
+- 0.0.1 `16.10.2013`
   * Initial version
 
 ## TODO

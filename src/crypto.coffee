@@ -1,20 +1,24 @@
 crypto = require 'crypto'
 ciphers = require './ciphers'
+{ algorithm, inputEnc, outputEnc } = require './constants'
 { lowerCase } = require './common'
 
 module.exports = 
 
-  default: 'aes256'
+  default: algorithm
 
-  ciphers: ciphers
+  ciphers: Object.keys(ciphers)
 
   algorithmExists: (algorithm) ->
-    @ciphers.indexOf(lowerCase(algorithm)) isnt -1
+    ciphers.hasOwnProperty(lowerCase(algorithm))
+
+  getAlgorithm: (algorithm) ->
+    ciphers[lowerCase(algorithm)] if @algorithmExists(algorithm)
 
   encrypt: (data, key, algorithm = @default) ->
-    cipher = crypto.createCipher(lowerCase(algorithm), key);
-    cipher.update(data, 'utf8', 'hex') + cipher.final('hex')
+    cipher = crypto.createCipher(@getAlgorithm(algorithm), key);
+    cipher.update(data, inputEnc, outputEnc) + cipher.final(outputEnc)
 
   decrypt: (data, key, algorithm = @default) ->
-    decipher = crypto.createDecipher(lowerCase(algorithm), key)
-    decipher.update(data, 'hex', 'utf8') + decipher.final('utf8')
+    decipher = crypto.createDecipher(@getAlgorithm(algorithm), key)
+    decipher.update(data, outputEnc, inputEnc) + decipher.final(inputEnc)

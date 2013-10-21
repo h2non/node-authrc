@@ -33,9 +33,7 @@
     "configuration",
     "git"
   ],
-  "dependencies": {
-    "diff": "~1.0.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-mocha-cli": "~1.0.3",

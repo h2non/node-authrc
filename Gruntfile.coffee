@@ -29,9 +29,13 @@ module.exports = (grunt) ->
           level: 'warn'
         indentation:
           level: 'warn'
+        no_backticks:
+          level: 'warn'
 
     coffee:
       lib:
+        options:
+          bare: true
         expand: true
         cwd: 'src/'
         src: ['**/*.coffee']

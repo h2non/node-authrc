@@ -9,12 +9,16 @@
     },
     "git.server.org:8443/resource": {
         "username": "tim",
-        "password": "1325248b0bc6a0bfc33ac99d468223f543a7b00fb386f617b0fb7183b0d70f4c",
-        "cipher": "aes256"
+        "password": { 
+            "value": "1325248b0bc6a0bfc33ac99d468223f543a7b00fb386f617b0fb7183b0d70f4c",
+            "cipher": "aes256"
+        }
     },
     "10.0.0.2": {
         "username": "michael",
-        "password": "unbreakablepassword"
+        "password": {
+            "envValue": "MY_SERVER_USER_PASSWORD"
+        }
     },
     "notld": {
         "username": "dennis",
@@ -23,8 +27,8 @@
     "http://my.server.org/some/resource": {
         "username": "will",
         "password": {
-            "env": "MY_SUPER_PASSWORD",
-            "encoding": "utf8",
+            "value": "unbreakablepassword",
+            "envKey": "MY_DECRYPT_PASSWORD_KEY",
             "cipher": "blowfish"
         }
     }

@@ -1,50 +1,46 @@
-###
-
-authrc
-http://github.com/h2non/node-authrc
-
-Copyright (c) 2013 Tomas Aparicio
-Licensed under the MIT license.
-
-###
-
 fs = require 'fs'
 path = require 'path'
-HostAuth = require './hostauth'
+fileChange = require './filechange'
+Host = require './host'
 { version, authRcFile } = require './constants'
-{ readJSON } = require './common'
+{ readJSON, writeJSON, extend, getHomePath, cloneDeep } = require './common'
 
 module.exports = class
 
   @version: version
   file: null
-  data: {} 
+  data: {}
 
   constructor: (filepath) ->
-    @file = path.normalize(filepath) if filepath
-
-    if filepath and fs.existsSync(filepath)
-      @file = filepath
-    else
-      @file = getAuthFilePath()
+    filepath = path.normalize(filepath) if filepath
+    @file = getAuthFilePath(filepath)
 
     if authFileExists(@file) 
       @data = readJSON(@file)
+      fileChange @file, => 
+        @data = readJSON(@file)
 
-  get: (host, data = @data) ->
-    new HostAuth(data, host)
+  host: (string, data = @data) =>
+    new Host(data, string)
 
-  getContents: ->
-    @data
+  add: (hostObj) =>
+    extend(@data, hostObj)
+    true
 
-  getHosts: ->
+  save: (data = @data, callback) =>
+    writeJSON(@file, data, callback)
+
+  getContent: =>
+    cloneDeep(@data)
+
+  getHosts: =>
     Object.keys(@data)
 
-  exists: ->
+  exists: =>
     Object.keys(@data).length isnt 0;
 
-getLocalFilePath = (filePath) ->
-  path.join path.dirname(filePath) or process.cwd(), authRcFile
+getLocalFilePath = (filepath) ->
+  path.join path.dirname(filepath) or process.cwd(), authRcFile
 
 getGlobalFilePath = () ->
   path.join(getHomePath(), authRcFile)
@@ -59,4 +55,4 @@ getAuthFilePath = (filepath) ->
   authFile = getGlobalFilePath()
   return authFile if fs.existsSync(authFile)
 
-  return false
+  true
