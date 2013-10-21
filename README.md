@@ -110,7 +110,7 @@ Store the authentication config `Object` for the given host
   * Removed external dependency for strings diff algorithm implementation
   * Added config file watcher (experimental)
 
-- 0.0.1 `17.10.2013`
+- 0.0.2 `17.10.2013`
   * API changes. Refactoring 
   * Added initial support for encrypted passwords
 
