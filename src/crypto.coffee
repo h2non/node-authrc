@@ -9,11 +9,11 @@ module.exports =
 
   ciphers: Object.keys(ciphers)
 
-  algorithmExists: (algorithm) ->
+  cipherExists: (algorithm) ->
     ciphers.hasOwnProperty(lowerCase(algorithm))
 
   getAlgorithm: (algorithm) ->
-    ciphers[lowerCase(algorithm)] if @algorithmExists(algorithm)
+    ciphers[lowerCase(algorithm)] if @cipherExists(algorithm)
 
   encrypt: (data, key, algorithm = @default) ->
     cipher = crypto.createCipher(@getAlgorithm(algorithm), key);

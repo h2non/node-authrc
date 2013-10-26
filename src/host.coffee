@@ -114,7 +114,7 @@ module.exports = class Host extends Actions
     { password } = @get()
     return no if not isObject(password)
     return no if (not password.cipher or password.cipher is 'plain') and password.encrypted isnt true
-    crypto.algorithmExists(@cipher())
+    crypto.cipherExists(@cipher())
 
   canDecrypt: =>
     @isEncrypted() and @passwordKey()?
@@ -123,14 +123,16 @@ module.exports = class Host extends Actions
   # @throws Error, TypeError
   decrypt: (key = @passwordKey(), cipher = @cipher()) =>
     throw new Error('The password value do not exists') unless @exists()
+    throw new TypeError('Unsupported cipher algorithm: ' + cipher) unless crypto.cipherExists(cipher)
     return @password() if not @isEncrypted()
     throw new TypeError('Missing required key argument') if not isString(key)
 
     crypto.decrypt(@password(), key, cipher)
 
   # @throws Error, TypeError
-  encrypt: (key = @cipher(), cipher = algorithm) =>
+  encrypt: (key = @passwordKey(), cipher = algorithm) =>
     throw new Error('The password value do not exists') unless @exists()
+    throw new TypeError('Unsupported cipher algorithm: ' + cipher) unless crypto.cipherExists(cipher)
     throw new Error('The password is already encrypted') if @isEncrypted()
     throw new TypeError('Missing required key argument') if not isString(key)
 

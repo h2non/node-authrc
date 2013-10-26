@@ -102,11 +102,10 @@ describe 'Password decryption', ->
       process.env['MY_DECRYPT_PASSWORD_KEY'] = ''
 
     it 'should be an encrypted password', ->
-      expect(host.isEncrypted()).to.be.true
+      expect(host.isEncrypted()).to.be.false
 
     it 'should can decrypt', ->
       expect(host.canDecrypt()).to.be.false
 
-    it 'should decrypt the defined cipher', ->
-      expect(host.decrypt(key))
-        .to.be.equal('unbreakablepassword')
+    it 'should throw an TypeError exception', ->
+      expect(-> host.decrypt(key)).to.be.throw(TypeError)
