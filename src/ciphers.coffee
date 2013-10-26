@@ -1,4 +1,3 @@
-
 module.exports =
   'aes128': 'aes-128-cbc'
   'aes192': 'aes-192-cbc'

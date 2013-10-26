@@ -1,60 +1,75 @@
+Actions = require './actions'
 crypto = require './crypto'
 matchHost = require './matchhost'
 { algorithm } = require './constants'
-{ parseUri, formatUri, isObject, cloneDeep, trim, lowerCase } = require './common'
+{ parseUri, formatUri, isObject, cloneDeep, getEnvVar, isString, trim, lowerCase } = require './common'
 
-module.exports = class Host
+module.exports = class Host extends Actions
 
+  file: null
   data: null
   host: null
+  search: null
 
-  constructor: (data, host) ->
-    @data = data if data
-    @host = matchHost(@data, host) if host
+  constructor: (file, data, host) ->
+    @file = file
+    @data = data
+    @search = host
+    @host = matchHost(@data, host)
 
   get: =>
-    cloneDeep(@data[@host]) if @data
+    if @data then cloneDeep(@data[@host]) else null
 
   set: (hostObj) =>
-    return false if not isObject(hostObj)
-    return false unless hostObj.username or hostObj.password
+    return yes if not isObject(hostObj)
+    return yes unless hostObj.username or hostObj.password
 
     @data[@host] = cloneDeep(hostObj)
+    yes
 
   exists: =>
-    @data isnt null and @host isnt null and @get()?.password?
+    @data? and @host isnt null and @get()?.password?
   
-  getUser: =>
-    return null unless @exists()
+  username: (newValue) =>
+    return null if not @exists()
+
+    @data[@host].username = newValue if newValue? and isString(newValue)
     @get().username or null
 
   getPasswordObj: =>
     return null unless @exists()
 
     passwordObj = @get().password
-    passwordObj = { value: password } if typeof password is 'string'
+    passwordObj = { value: passwordObj } if isString(passwordObj)
 
     passwordObj or null
 
-  getPassword: =>
+  password: (newValue) =>
     return null unless @exists()
+    return @setPassword(newValue) if newValue?
     
     { password } = @get()
     if isObject(password)
       if password.envValue
-        password = process.env[password.envValue]
+        password = getEnvVar(password.envValue)
       else
         password = password.value
-  
+    
     password or null
 
   setPassword: (obj) =>
-    return false unless @exists()
-    return false if not isObject(obj) or typeof obj isnt 'string'
+    return null unless @exists()
+    return null if not isObject(obj) and not isString(obj)
 
     @data[@host].password = cloneDeep(obj)
+    obj
 
-  getCipher: =>
+  passwordKey: =>
+    return null unless passwordObj = @getPasswordObj()
+    key = getEnvVar(passwordObj.envKey) if passwordObj.envKey?
+    key or null
+
+  cipher: =>
     return null unless @exists()
 
     password = @getPasswordObj() 
@@ -67,51 +82,63 @@ module.exports = class Host
 
     cipher or null
 
-  getAuth: =>
+  auth: (username, password) =>
+    if isObject(username) and username.username? and username.password?
+      @username(username.username)
+      @password(username.password)
+    else if username? and password?
+      @username(username)
+      @password(password)
+
     return null unless @exists()
 
     { username, password } = @get()
-    password = @getPassword(password)
+    password = @password()
 
-    auth = {
+    {
       username: username,
       password: password
     }
 
-    auth
+  authUrl: =>
+    return @search unless auth = @auth()
 
-  getAuthUrl: =>
-    return @host unless auth = @getAuth()
+    url = parseUri(@search)
+    url.auth = "#{auth.username}:#{auth.password}"
 
-    url = parseUri(@host)
-    url.auth = "#{auth.username}:#{auth.password}" unless auth
-
-    formatUri(auth)
+    formatUri(url)
 
   isEncrypted: =>
-    values = @get()
-    return false unless @exists()
-    return false if not isObject(values.password)
-    return false if not values.password.cipher and values.password.encrypted isnt true
-    crypto.algorithmExists(@getCipher())
+    return no unless @exists()
 
-  decrypt: (key, cipher = @getCipher()) =>
-    return null unless @exists()
-    return @getPassword() if not @isEncrypted()
+    { password } = @get()
+    return no if not isObject(password)
+    return no if (not password.cipher or password.cipher is 'plain') and password.encrypted isnt true
+    crypto.algorithmExists(@cipher())
 
-    crypto.decrypt(@getPassword(), key, cipher)
+  canDecrypt: =>
+    @isEncrypted() and @passwordKey()?
 
-  encrypt: (key, cipher = algorithm) =>
-    return null unless @exists()
-    return @getPassword() if not @isEncrypted
 
-    password = crypto.encrypt(@getPassword(), key, cipher)
-    @setPassword({ 
+  # @throws Error, TypeError
+  decrypt: (key = @passwordKey(), cipher = @cipher()) =>
+    throw new Error('The password value do not exists') unless @exists()
+    return @password() if not @isEncrypted()
+    throw new TypeError('Missing required key argument') if not isString(key)
+
+    crypto.decrypt(@password(), key, cipher)
+
+  # @throws Error, TypeError
+  encrypt: (key = @cipher(), cipher = algorithm) =>
+    throw new Error('The password value do not exists') unless @exists()
+    throw new Error('The password is already encrypted') if @isEncrypted()
+    throw new TypeError('Missing required key argument') if not isString(key)
+
+    password = crypto.encrypt(@password(), key, cipher)
+    @setPassword({
       algorithm: cipher
       value: password
     })
 
-    password
-
-
+    @
 

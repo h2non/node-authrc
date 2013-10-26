@@ -1,20 +1,70 @@
-{ expect, should } = require '../node_modules/chai/chai'
+{ expect } = require '../node_modules/chai/chai'
 Authrc = require '../lib/authrc'
 
-describe 'Authrc', ->
+describe 'Password encryption', ->
+  authrcPath = 'test/fixtures/encryption/.authrc'
+  key = '@_$vp€R~k3y'
+  auth = null
+  host = null
 
-  describe 'authrc file path', ->
-    auth = null
+  describe 'existant host with plain password', ->
 
     beforeEach -> 
-      auth = new Authrc('test/fixtures/.authrc')
+      auth = new Authrc(authrcPath)
 
-    it 'should return the auth for the given hostname', ->
-      expect(auth.host('http://git.server.org').getAuth()).to.deep.equal({ 
-        username: 'john'
-        password: 'unbreakablepassword'
-      })
+    beforeEach -> 
+      host = auth.host('http://git.server.org')
 
+    it 'should not do an automatic password decryption', ->
+      expect(host.canDecrypt()).to.be.false
+
+    it 'should not be an encrypted password', ->
+      expect(host.isEncrypted()).to.be.false
+
+    it 'should encrypt the password with default cipher', ->
+      expect(host.encrypt(key).password())
+        .to.be.equal('8cfe62fb21fc8d9e99718154f8c827214ef362f28497146ec1f612d4fdb86c30')
+
+    describe 'encryption with supported ciphers', ->
+
+      it 'should encrypt the password with AES256', ->
+        expect(host.encrypt(key, 'aes256').password())
+          .to.be.equal('6400ff3f33bec8481dc7ead8bb5294fe0ea4b690a9b6fecd1d029ec54b062ccf')
+
+      it 'should encrypt the password with Blowfish', ->
+        expect(host.encrypt(key, 'blowfish').password())
+          .to.be.equal('41b717a64c6b5753ed5928fd8a53149a7632e4ed1d207c91')
+
+      it 'should encrypt the password with Camellia', ->
+        expect(host.encrypt(key, 'camellia128').password())
+          .to.be.equal('857c5903cabc19444e7d4393a512b94b89daf9bec48c062d614dc576e6bc8ef6')
+
+      it 'should encrypt the password with CAST', ->
+        expect(host.encrypt(key, 'cast').password())
+          .to.be.equal('04ad8d25c0f92070d34c1763be723d380a99f7e20666d7d0')
+
+      it 'should encrypt the password with IDEA', ->
+        expect(host.encrypt(key, 'idea').password())
+          .to.be.equal('f3d3d049ec7f9a0e8de66891fbc63881b765ea965c5fc37c')
+
+      it 'should encrypt the password with SEED', ->
+        expect(host.encrypt(key, 'SEED').password())
+          .to.be.equal('cfef06c5a7640beca47f36893c2b7667b43c370ba4f7e0cfd971b42b166cd8b4')   
+
+    describe 'faile suite with non-supported ciphers', ->
+
+      it 'should try to encrypt the password with RC4', ->
+        expect(-> host.encrypt(key, 'rc4')).to.throw(Error)
+
+      it 'should try to encrypt the password with 3DES', ->
+        try
+          expect(-> host.encrypt(key, '3des')).to.throw(Error)
+
+      it 'should try to encrypt the password with AES512', ->
+        try
+          expect(-> host.encrypt(key, 'AES512')).to.throw(Error)
+
+  ###
     it 'should return the auth for the given hostname and port', ->
       expect(auth.host('https://git.server.org:8443').getAuth()).to.deep.equal({ 
         username: 'philip'
@@ -103,5 +153,6 @@ describe 'Authrc', ->
     it 'should descrypt the password', ->
       key = 'p@ssw0rd'
       expect(host.decrypt(key)).to.be.equal('unbreakablepassword')
-
+  
+  ###
   # more test in progress...

@@ -1,58 +1,65 @@
 fs = require 'fs'
 path = require 'path'
 fileChange = require './filechange'
+Actions = require './actions'
 Host = require './host'
 { version, authRcFile } = require './constants'
-{ readJSON, writeJSON, extend, getHomePath, cloneDeep } = require './common'
+{ getHomePath, cloneDeep, fileExists, dirExists } = require './common'
 
-module.exports = class
+module.exports = class Authrc extends Actions
 
   @version: version
   file: null
   data: {}
 
-  constructor: (filepath) ->
-    filepath = path.normalize(filepath) if filepath
-    @file = getAuthFilePath(filepath)
+  constructor: (filepath = process.cwd()) ->
+    filepath = getAuthFilePath(path.normalize(filepath))
 
-    if authFileExists(@file) 
-      @data = readJSON(@file)
-      fileChange @file, => 
-        @data = readJSON(@file)
+    if filepath?
+      @file = filepath
+      @read()
+      fileChange.watch filepath, =>
+        try # prevent multiple file access/write when the buffer is empty
+          @data = @read() 
 
   host: (string, data = @data) =>
-    new Host(data, string)
+    new Host(@file, data, string)
 
-  add: (hostObj) =>
-    extend(@data, hostObj)
-    true
+  find: Authrc::host
 
-  save: (data = @data, callback) =>
-    writeJSON(@file, data, callback)
-
-  getContent: =>
+  getData: =>
     cloneDeep(@data)
 
-  getHosts: =>
+  hosts: =>
     Object.keys(@data)
 
   exists: =>
-    Object.keys(@data).length isnt 0;
+    Object.keys(@data).length isnt 0
 
-getLocalFilePath = (filepath) ->
-  path.join path.dirname(filepath) or process.cwd(), authRcFile
+  hostExists: (string) =>
+    @host(string).exists()
 
-getGlobalFilePath = () ->
+  unwatch: ->
+    fileChange.unwatch()
+
+getCurrentDirFilePath = (filepath) ->
+  path.join(process.cwd(), authRcFile)
+
+getDirFilePath = (filepath) ->
+  path.join((if dirExists(filepath) then filepath else path.dirname(filepath)), authRcFile)
+
+getGlobalFilePath = ->
   path.join(getHomePath(), authRcFile)
 
-authFileExists = (filepath) ->
-  fs.existsSync(getLocalFilePath(filepath)) or fs.existsSync(getGlobalFilePath())
-
 getAuthFilePath = (filepath) ->
-  authFile = getLocalFilePath(filepath)
-  return authFile if fs.existsSync(authFile)
-
+  # resolve explitic file path
+  return filepath if filepath? and fileExists(filepath)
+  # resolve based on the path directory
+  authFile = getDirFilePath(filepath)
+  return authFile if fileExists(authFile)
+  # resolve based on the current working directory
+  authFile = getCurrentDirFilePath(filepath)
+  return authFile if fileExists(authFile)
+  # finally fallback to user home directory pach
   authFile = getGlobalFilePath()
-  return authFile if fs.existsSync(authFile)
-
-  true
+  return authFile if fileExists(authFile)

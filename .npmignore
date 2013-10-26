@@ -10,3 +10,4 @@ src/
 .idea/
 .DS_Store
 *.coffee
+test/

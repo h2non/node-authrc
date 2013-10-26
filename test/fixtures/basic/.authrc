@@ -7,12 +7,13 @@
         "username": "philip",
         "password": "unbreakablepassword"
     },
-    "git.server.org:8443/resource": {
+    "https://my.git.server.org": {
+        "username": "george",
+        "password": "unbreakablepassword"
+    },
+    "https://git.server.org/resource": {
         "username": "tim",
-        "password": { 
-            "value": "1325248b0bc6a0bfc33ac99d468223f543a7b00fb386f617b0fb7183b0d70f4c",
-            "cipher": "aes256"
-        }
+        "password": "unbreakablepassword"
     },
     "10.0.0.2": {
         "username": "michael",
@@ -20,16 +21,14 @@
             "envValue": "MY_SERVER_USER_PASSWORD"
         }
     },
+    "ftp://10.0.0.2": {
+        "username": "douglas",
+        "password": {
+            "envValue": "MY_FTP_SERVER_USER_PASSWORD"
+        }
+    },
     "notld": {
         "username": "dennis",
         "password": "$up€r_$3crEt_%?"
-    },
-    "http://my.server.org/some/resource": {
-        "username": "will",
-        "password": {
-            "value": "unbreakablepassword",
-            "envKey": "MY_DECRYPT_PASSWORD_KEY",
-            "cipher": "blowfish"
-        }
     }
 }

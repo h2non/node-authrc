@@ -3,3 +3,4 @@ npm-debug.log
 *.js
 .DS_Store
 .idea/
+test/fixtures/tmp/.authrc

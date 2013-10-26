@@ -12,6 +12,8 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
+    clean: ['lib/**/*.js', 'test/*.js', 'test/tmp/**/*']
+
     coffeelint:
       gruntfile:
         src: '<%= watch.gruntfile.files %>'
@@ -72,8 +74,6 @@ module.exports = (grunt) ->
       test:
         files: ['src/test/**/*.coffee']
         tasks: ['coffeelint:test', 'coffee:test', 'simplemocha']
-        
-    clean: ['lib/**/*.js', 'test/*.js']
 
   grunt.event.on 'watch', (action, files, target)->
     grunt.log.writeln "#{target}: #{files} has #{action}"
@@ -89,8 +89,9 @@ module.exports = (grunt) ->
 
     grunt.config ['coffee', target], coffeeData
 
-  # tasks.
+
   grunt.registerTask 'compile', [
+    'clean'
     'coffeelint'
     'coffee'
   ]
@@ -98,6 +99,11 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', [
     'compile',
     'mochacli'
+  ]
+
+  grunt.registerTask 'publish', [
+    'test'
+    'release'
   ]
 
   grunt.registerTask 'default', [

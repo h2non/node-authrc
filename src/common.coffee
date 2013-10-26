@@ -1,65 +1,90 @@
 fs = require 'fs'
 path = require 'path'
+{ inputEnc } = require './constants'
 { parse, format } = require 'url'
 
-module.exports = new class
+module.exports = class
 
-  getHomePath: ->
-    path.normalize process.env[(if (process.platform is 'win32') then 'USERPROFILE' else 'HOME')]
+  @getHomePath: ->
+    path.normalize process.env[(if (process.platform is 'win32') then 'USERPROFILE' else 'HOME')] or ''
 
-  isUri: (string) ->
-    { protocol, hostname } = parse(string)
-    protocol? and hostname?
+  @getEnvVar: (name) =>
+    process.env[@trim(name)]
 
-  parseUri: (string) ->
+  @parseUri: (string) ->
     host = parse(string)
     # add support for aditional protocols
     if not host.protocol or string.indexOf('://') is -1
       host = arguments.callee('http://' + string)
     host
 
-  formatUri: (object) ->
+  @isUri: (string) =>
+    { protocol, hostname } = @parseUri(string)
+    protocol? and hostname?
+
+  @formatUri: (object) ->
     format(object)
 
-  readJSON: (filepath) ->
-    JSON.parse(fs.readFileSync(filepath))
+  @readJSON: (filepath) =>
+    JSON.parse(fs.readFileSync(filepath, { encoding: inputEnc }))
 
-  writeJSON: (filepath, data, callback) ->
+  @writeJSON: (filepath, data, callback) ->
+    data = do ->
+      obj = {}
+      for key of data
+        if data.hasOwnProperty(key) and data[key]?
+          obj[key] = data[key]
+      obj
+
     fs.writeFile filepath, JSON.stringify(data, null, 4), (err) ->
       if typeof callback is 'function'
         return callback(err) if err
-        callback()
+        callback(null, data)
 
-  lowerCase: (string) =>
+  @fileExists: (path) ->
+    return false if not fs.existsSync(path)
+    stat = fs.lstatSync(path)
+    stat.isFile() or stat.isSymbolicLink()
+
+  @dirExists: (path) ->
+    return false if not fs.existsSync(path)
+    fs.lstatSync(path).isDirectory()
+
+  @lowerCase: (string) =>
     string = string.toLowerCase() if @isString(string)
     string
 
-  trim: (string) =>
+  @trim: (string) =>
     if @isString(string)
       string = string.trim()
     string
 
-  isString: (string) ->
+  @isString: (string) ->
     typeof string is 'string'
 
-  isObject: (obj) ->
+  @isObject: (obj) ->
     typeof obj is 'object' and obj isnt null
 
-  isArray: (obj) =>
+  @isArray: (obj) =>
     @isObject(obj) and obj.toString() is '[object Array]'
 
-  extend: (target, obj) ->
+  @omit: (obj, props...) ->
+    newObj = {}
+    for key of obj when obj.hasOwnProperty(key) and props.indexOf(key) is -1
+      newObj[key] = obj[key]
+    newObj
+
+  @extend: (target, obj) ->
     for prop of obj
-      target[prop] = obj[prop]
+      if obj.hasOwnProperty(prop)
+        target[prop] = obj[prop]
     target
 
-  cloneDeep: (obj) =>
-    toStr = Object::toString
-
+  @cloneDeep: (obj) =>
     return obj if obj is undefined or obj is null
     return obj if typeof obj is 'number'
     return obj if @isString(obj)
-    return new Date(obj.getTime()) if toStr.call(obj) is '[object Date]'
+    return new Date(obj.getTime()) if Object::toString.call(obj) is '[object Date]'
 
     clone = (if @isArray(obj) then obj.slice() else ((obj) ->
       o = {}
@@ -68,8 +93,10 @@ module.exports = new class
       o
     (obj)))
 
-    for key of clone
-      if clone.hasOwnProperty(key)
-        clone[key] = arguments.callee.call(@, clone[key])
+    for key of clone when clone.hasOwnProperty(key)
+      clone[key] = arguments.callee.call(@, clone[key])
 
     clone
+
+  @log: ->
+    console.log.apply null, Array::slice.call arguments

@@ -1,10 +1,10 @@
-# authrc for node [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
+# authrc for Node [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
 
-[authrc](http://github.com/adesisnetlife/authrc) specification implementation for Node
+[authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
 The implementation is based on the authrc specification version `0.1`
 
-`Note that this is still an alpha implementation, work in process`
+`Note that this is still an beta implementation`
 
 ## Getting Started
 
@@ -14,7 +14,15 @@ Install the package via NPM:
 $ npm install authrc
 ```
 
-Use it:
+For only CLI usage is recommended you install as global package:
+
+```
+$ npm install -g authrc
+```
+
+### Examples
+
+#### Node.js
 
 ```javascript
 var Authrc = require('authrc');
@@ -24,36 +32,42 @@ auth.get('http://myserver.org').getAuthUrl();
 // https://john:pa$sw0rd@myserver.org:8443
 ```
 
+#### CLI usage
+
+```
+$ authrc 
+```
+
 ## API
 
 ### Constructor
 
-#### new Authrc (filepath[String]?)
+#### new Authrc(filepath[String]?)
 
 ```js
 var Authrc = require('authrc')
-var auth = new Authrc('file/to/.authrc');
+var auth = new Authrc('file/to/.authrc'); // or without arguments for auto discovering
 ```
 
 Get the authrc supported version spec
 ```js
 Authrc.version // '0.1'
 ```
-#### exists ()
+#### exists()
 
 Return `true if the .authrc file was found and config exists
 
-#### get (hostOrUrl[String])
+#### get(hostOrUrl[String])
 
 Search the given string in .authrc config file
 
-Return `HostAuth Object`
+Return a `Host Object`
 
-#### getHosts ()
+#### getHosts()
 
 Return an `Array` the hosts defined in the .authrc file
 
-#### getContents ()
+#### getContents()
 
 Return the first .authrc data contents found on the system.
 
@@ -68,35 +82,39 @@ The authrc file search algorithm will do what follows:
  2.2 If not found, return `null` and exit
 ```
 
-### HostAuth Object
+### Host Object
 
-#### getAuth ()
+#### getAuth()
 
 Returns an `Object` with the autentication credentials
 
-#### getAuthUrl ()
+#### getAuthUrl()
 
 Search the given string and return the full URL with the authenticacion credentials
 
-#### exists ()
+#### exists()
 
 Return true if the host/url was found and credentials data exists
 
-#### getValues ()
+#### getValues()
 
 Return an `Object` with the found config values
 
-#### isEncrypted ()
+#### isEncrypted()
 
 Return `true` if the password for the given host is encrypted
 
-#### decrypt (key[String])
+#### decrypt(key[String]?)
 
-Return a `String` with the decrypted password. Key argument is required
+Return a `String` with the decrypted password
 
-#### encrypt (key[String], algorithm[String])
+The `key` argument is required if the current password has no `envKey` variable defined
 
-Return a `String` with the encrypted password. Key argument is required
+#### encrypt(key[String]?, algorithm[String]?)
+
+Return a `String` with the encrypted password
+
+The `key` argument is required if the current password has no `envKey` variable defined
 
 #### host
 
@@ -104,25 +122,15 @@ Store the authentication config `Object` for the given host
 
 ## Release History
 
-- 0.0.3 `21.10.2013`
-  * Notorious API changes. Refactoring 
-  * Improved support for password encryption
-  * Removed external dependency for strings diff algorithm implementation
-  * Added config file watcher (experimental)
-
-- 0.0.2 `17.10.2013`
-  * API changes. Refactoring 
-  * Added initial support for encrypted passwords
-
-- 0.0.1 `16.10.2013`
-  * Initial version
+See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
 
 ## TODO
 
+- Add support for host based regex expressions?
 - Support for create and save new config values
 - Better support for password encryption
 - Add CLI support
-- Add more test cases
+- Add E2E test suite
 
 ## License
 
