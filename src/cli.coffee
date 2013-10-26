@@ -2,7 +2,7 @@ program = require 'commander'
 pkg = require '../package.json'
 { log } = require './common'
 
-[ 'auth', 'package' ]
+[ 'create' ]
   .map (file) -> './command/' + file
   .forEach require
 
