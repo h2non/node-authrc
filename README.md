@@ -2,9 +2,15 @@
 
 [authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
-The implementation is based on the authrc specification version `0.1`
-
 `Note that this is still an beta implementation`
+
+## About
+
+authrc is a standard configuration file that provides a centralized authentication credentials storage for network-based services and resources
+
+For more defails, see the current [specification page](http://github.com/adesisnetlife/authrc)
+
+Spec version supported: `0.1`
 
 ## Getting Started
 
@@ -14,7 +20,7 @@ Install the package via NPM:
 $ npm install authrc
 ```
 
-For only CLI usage is recommended you install as global package:
+For only CLI usage is recommended you install it as global package:
 
 ```
 $ npm install -g authrc
@@ -28,8 +34,8 @@ $ npm install -g authrc
 var Authrc = require('authrc');
 var auth = new Authrc();
 
-auth.get('http://myserver.org').getAuthUrl();
-// https://john:pa$sw0rd@myserver.org:8443
+auth.host('http://myserver.org').auth();
+// { username: 'john', password: '$up3r-p@ssw0rd' }
 ```
 
 #### CLI usage
