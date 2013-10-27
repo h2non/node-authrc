@@ -12,9 +12,9 @@ program.on '--help', ->
       Usage examples:
     
         $ authrc create --path /home/user/
-        $ authrc add set -u username --path ./.authrc
-        $ authrc remove <hostname> 
-        $ authrc update <hostname>
+        $ authrc add --path ./.authrc
+        $ authrc remove my.host.org
+        $ authrc update my.host.org
 
   """
 

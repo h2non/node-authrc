@@ -1,22 +1,21 @@
 prompt = require './prompt'
 async = require 'async'
-validator = require './validator'
 { ciphers, encrypt, defaultCipher } = require '../crypto'
-{ echo, exit, isArray, isString, isObject } = require '../common'
+{ echo, exit } = require '../common'
 
 module.exports = 
 
   createCredentials: (successFn) ->
-    authObj = null
+    authObj = {}
 
     promptUsername = (done) ->
       prompt.username (input) ->
-        host.username = input
+        authObj.username = input
         done()
 
     promptPassword = (done) ->
       prompt.password (input) ->
-        host.password = input
+        authObj.password = input
         done()
 
     promptEncrypt = (done) ->
@@ -28,24 +27,22 @@ module.exports =
       echo ''
       echo 'Supported ciphers:'
       ciphers.forEach (cipher) ->
-        echo "- #{cipher}".cyan + if cipher is defaultCipher then ' (recommended)'.cyan  else ''
+        echo "- #{cipher}".cyan + if cipher is defaultCipher then ' (recommended)'.cyan else ''
       echo ''
 
       prompt.choose 'Choose the cipher algorithm: ', ciphers, (input) ->
-        plainPassword = host.password
-        host.password = { cipher: input }
+        authObj.password = { cipher: input, value: authObj.password }
         done()
 
     promptPasswordKey = (done) ->
-      prompt.password 'the password key', { validator: validator.password }, (input) ->
-        host.password.value = encrypt(plainPassword, value, host.password.cipher)
+      prompt.password 'the password key', (input) ->
+        authObj.password.value = encrypt(authObj.password.value, input, authObj.password.cipher)
         done()
 
-    promptSaveFile = (done) ->
-      prompt.confirm 'Do you want to save? [Y/n]', (ok) ->
+    promptSaveFile = ->
+      prompt.confirm 'Do you want to save?', (ok) ->
         exit 0, 'Canceled' unless ok
         successFn(authObj)
-        done()
 
     async.series [
       promptUsername
@@ -57,57 +54,19 @@ module.exports =
     ]
 
   createHost: (successFn) ->
-    host = null
     hostObj = {}
+    host = null
 
     promptHostname = (done) ->
       prompt.hostname (input) ->
-        host = hostObj[input] = {}
+        host = input
         done()
 
     createCredentials = (done) =>
-      @createCredentials ->
-        successFn()
-        done()
-
-    ###
-    promptUsername = (done) ->
-      prompt.username (input) ->
-        host.username = input
-        done()
-
-    promptPassword = (done) ->
-      prompt.password (input) ->
-        host.password = input
-        done()
-
-    promptEncrypt = (done) ->
-      prompt.confirm 'Do you want to encrypt your password', (ok) ->
-        return promptSaveFile() unless ok
-        done()
-
-    promptChooseCipher = (done) ->
-      echo ''
-      echo 'Supported ciphers:'
-      ciphers.forEach (cipher) ->
-        echo "- #{cipher}".cyan + if cipher is defaultCipher then ' (recommended)'.cyan  else ''
-      echo ''
-
-      prompt.choose 'Choose the cipher algorithm: ', ciphers, (input) ->
-        host.password = { cipher: input, value: host.password }
-        done()
-
-    promptPasswordKey = (done) ->
-      prompt.password 'the password key', { validator: validator.password }, (input) ->
-        host.password.value = encrypt(host.password.value, value, host.password.cipher)
-        done()
-
-    promptSaveFile = ->
-      prompt.confirm 'Do you want to save? [Y/n]', (ok) ->
-        exit 0, 'Canceled' unless ok
+      @createCredentials (authObj) ->
+        hostObj[host] = authObj
         successFn(hostObj)
-
-    ###
+        done()
 
     async.series [
       promptHostname

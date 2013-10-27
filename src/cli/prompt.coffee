@@ -5,7 +5,7 @@ validator = require './validator'
 module.exports =
 
   hostname: (callback) ->
-    prompt 'Enter the host name: ', callback
+    prompt 'Enter the host name: ', handleResponse callback
 
   username: (callback) ->
     prompt 'Enter the user name: ', handleResponse callback
@@ -14,7 +14,7 @@ module.exports =
     if isString callback
       callbackFn = message
       message = callback
-      callback = callback
+      callback = callbackFn
 
     prompt "Enter #{message or 'the password'}: ", { validator: validator.password }, 'password', handleResponse (value) ->
       password = value
@@ -27,7 +27,7 @@ module.exports =
     prompt "#{message} [Y/n]:", 'confirm', handleResponse callback
 
   choose: (message, list, callback) ->
-    prompt "#{message} [Y/n]:", 'choose', list, handleResponse callback
+    prompt "#{message}:", 'choose', list, handleResponse callback
 
 
 handleResponse = (callback) ->
@@ -58,6 +58,7 @@ prompt = (message, callback, list, type, options) ->
         when 'function' then temp.callback = value
         when 'array' then temp.list = value
         when 'object' then temp.options = value
+
     temp.type ?= 'prompt'
     fnArgs.push value for param, value of temp when param isnt 'type'
 

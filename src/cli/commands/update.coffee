@@ -17,7 +17,8 @@ program
 
             $ authrc update my.host.org 
             $ authrc update my.host.org:8080 --path /home/user/
-        
+            $ authrc update my.host.org:8080 --username john --path /home/user/
+
     '''
   )
   .action (hostname, options) ->
@@ -32,8 +33,11 @@ program
       echo "Type --help to see other available commands"
       exit 0
 
-    auth = new Authrc(filepath)
-    auth.file = filepath
+    try
+      auth = new Authrc(filepath)
+      auth.file = filepath
+    catch err
+      exit 1, "Error reading .authrc file: #{err}".red
 
     host = auth.host(hostname)
     
@@ -42,8 +46,9 @@ program
     if options.username?
       host.username(options.username)
       host.save ->
-        exit 0, "Username valued updated successfully for #{host.host}"
+        exit 0, "Username valued updated successfully for #{host.host}".green
     else
-      processes.createHost ->
+      processes.createCredentials (data) ->
+        host.set data
         host.save ->
-          exit 0, "Data updated successfuly for #{host.host}"
+          exit 0, "Data updated successfuly for #{host.host}".green

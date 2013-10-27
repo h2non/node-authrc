@@ -31,8 +31,11 @@ program
       echo "Type --help to see other available commands"
       exit 0
 
-    auth = new Authrc(filepath)
-    auth.file = filepath
+    try
+      auth = new Authrc(filepath)
+      auth.file = filepath
+    catch err
+      exit 1, "Error reading .authrc file: #{err}".red
 
     host = auth.host(hostname)
     

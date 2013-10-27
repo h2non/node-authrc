@@ -5,7 +5,7 @@
 
 [authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
-`Note that this is still an beta implementation`
+`Note that this is still a beta implementation`
 
 ## About
 
@@ -20,10 +20,10 @@ Version implemented: `0.1-beta`
 Install the package via NPM: 
 
 ```
-$ npm install authrc
+$ npm install authrc --save
 ```
 
-For only CLI usage is recommended you install it as global package:
+For CLI usage is recommended you install it as global package:
 
 ```
 $ npm install -g authrc
@@ -41,54 +41,88 @@ auth.host('http://myserver.org').auth();
 // { username: 'john', password: '$up3r-p@ssw0rd' }
 ```
 
-#### CLI usage
+## Command-line interface
 
 ```
-$ authrc 
+$ authrc --help
+
+  Usage: authrc [options] [command]
+
+  Commands:
+
+    create [options]       
+      Create new .authrc file
+    add [options]          
+      Add new host to an existant .authrc file
+    remove [options] <host> 
+      Remove a host from .authrc
+    update [options] <host> 
+      Update a host from .authrc
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+  Usage examples:
+
+    $ authrc create --path /home/user/
+    $ authrc add --path ./.authrc
+    $ authrc remove my.host.org
+    $ authrc update my.host.org
+
 ```
 
-## API
+## Programmatic API
 
 ### Constructor
 
 #### new Authrc([filepath])
 
+Throws an exception if the `.authrc` is a bad formed JSON
+
 ```js
-var Authrc = require('authrc')
-var auth = new Authrc('file/to/.authrc'); // or without arguments for auto discovering
+var Authrc = require('authrc');
+var auth = new Authrc('file/to/.authrc');
 ```
 
 Get the authrc supported version spec
+
 ```js
 Authrc.version // '0.1'
 ```
+
 #### exists()
 
-Return `true if the .authrc file was found and config exists
+Return `true` if the `.authrc` file was found and it's not empty
 
-#### get(hostOrUrl[String])
+#### host(url[String])
 
-Search the given string in .authrc config file
+Search a host by the given string in .authrc config file
 
-Return a `Host Object`
+Return [Host Object](#Host)
+
+#### find(url[String])
+
+Alias to `host()`
 
 #### getHosts()
 
-Return an `Array` the hosts defined in the .authrc file
+Return an `Array` the existant hosts in the current `.authrc` file
 
-#### getContents()
+#### getData()
 
 Return the first .authrc data contents found on the system.
 
-The authrc file search algorithm will do what follows:
+The file discovery search algorithm will do what follows:
 
 ```
-1. Try to find .authrc file on the current working directory
- 1.1 If found, read the file, parse the content and return it
- 1.2 If not found, fallback to $HOME
-2. Try to find .authrc file in $HOME directory
- 2.1 If found, read the file, parse the content and return it
- 2.2 If not found, return `null` and exit
+Try to find .authrc file on the current working directory
+  If it exists, read and parse it
+  If it doesn’t exist, fallback to $HOME
+Try to find .authrc file in $HOME directory
+  If it exists, read and parse it
+  If it doesn’t exist, finish the process
 ```
 
 ### Host Object
@@ -136,9 +170,7 @@ See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md
 ## TODO
 
 - Add support for host based regex expressions?
-- Support for create and save new config values
-- Better support for password encryption
-- Add CLI support
+- Add CLI full support
 - Add E2E test suite
 
 ## License
