@@ -4,7 +4,7 @@
 
 `Note that this is still an beta implementation`
 
-<img src="http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png" alt="Not more!" style="width: 220px;"/>
+<img src="http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png" alt="Not more!" style="max-width: 250px;"/>
 
 ## About
 
