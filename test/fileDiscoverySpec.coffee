@@ -76,7 +76,7 @@ describe 'authrc file discovery', ->
         auth = new Authrc
 
       it 'should not find the file and the content not exists', ->
-          expect(auth.exists()).to.be.false
+        expect(auth.exists()).to.be.false
 
     describe 'with existent $HOME file', ->
       homePath = process.env[getHomeVar()]
@@ -92,4 +92,5 @@ describe 'authrc file discovery', ->
 
       it 'should find the file and the content exists', ->
         expect(auth.exists()).to.be.true
+        expect(auth.isGlobalFile()).to.be.true
 
