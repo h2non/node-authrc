@@ -63,7 +63,7 @@ describe 'authrc file discovery', ->
 
   describe 'without defining a explicit path', ->
 
-    describe 'without existant $HOME file', ->
+    describe 'wit non-existant $HOME file', ->
       homePath = process.env[getHomeVar()]
 
       before ->

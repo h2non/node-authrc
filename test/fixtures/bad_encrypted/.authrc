@@ -1,0 +1,37 @@
+{
+    "bad.cipher.org": {
+        "username": "george",
+        "password": {
+            "value": "8100ff3f33bec8481dh7ead8bb5294fe2ea4b690a9b6ffcd1d029ec54b062c4f",
+            "cipher": "aes128"
+        }
+    },
+    "bad.encrytion.org": {
+        "username": "tim",
+        "password": { 
+            "value": "8100ff3f33bec8481dh7ead8bb5294fe2ea4b690a9b6ffcd1d029ec54b062c4f",
+            "cipher": "aes256"
+        }
+    },
+    "bad.encryption.org/idea": {
+        "username": "michael",
+        "password": {
+            "value": "6400ff3f33bec8481dc7ead8bb5294fe0ea4b690a9b6fecd1d029ec54b062ccf",
+            "cipher": "idea"
+        }
+    },
+    "non.existant.org": {
+        "username": "bill",
+        "password": {
+            "value": "41b717a64c6b5753ed5928fd8a53149a7632e4ed1d207c91",
+            "cipher": "aes512"
+        }
+    },
+    "non.existant.org/bad-formed": {
+        "username": "philip",
+        "password": {
+            "value": "41b717a64c6b5753ed5928fd8a53149a7632e4ed1d207c91",
+            "cipher": "blow-fish"
+        }
+    }
+}

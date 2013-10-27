@@ -29,7 +29,12 @@ module.exports = class Host extends Actions
 
   exists: =>
     @data? and @host isnt null and @get()?.password?
+
+  isValid: =>
+    @exists() and @username()? and @password()?
   
+  valid: Host::isValid
+
   username: (newValue) =>
     return null if not @exists()
 
@@ -116,9 +121,10 @@ module.exports = class Host extends Actions
     return no if (not password.cipher or password.cipher is 'plain') and password.encrypted isnt true
     crypto.cipherExists(@cipher())
 
+  encrypted: Host::isEncrypted
+
   canDecrypt: =>
     @isEncrypted() and @passwordKey()?
-
 
   # @throws Error, TypeError
   decrypt: (key = @passwordKey(), cipher = @cipher()) =>

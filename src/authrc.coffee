@@ -42,6 +42,9 @@ module.exports = class Authrc extends Actions
   unwatch: ->
     fileChange.unwatch()
 
+  isGlobalFile: ->
+    @file is getGlobalFilePath()
+
 getCurrentDirFilePath = (filepath) ->
   path.join(process.cwd(), authRcFile)
 

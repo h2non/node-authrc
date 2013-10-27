@@ -1,0 +1,12 @@
+{
+    "bad.username.org": {
+        "username": null,
+        "password": {
+            "value": "8100ff3f33bec8481dh7ead8bb5294fe2ea4b690a9b6ffcd1d029ec54b062c4f"
+        }
+    },
+    "bad.auth.org": {
+        "username": null,
+        "password": false
+    }
+}
