@@ -68,6 +68,9 @@ module.exports = class Common
   @isArray: (obj) =>
     @isObject(obj) and obj.toString() is '[object Array]'
 
+  @isFn: (obj) ->
+    typeof obj is 'function'
+
   @omit: (obj, props...) ->
     newObj = {}
     for key of obj when obj.hasOwnProperty(key) and props.indexOf(key) is -1
@@ -101,6 +104,6 @@ module.exports = class Common
   @echo: ->
     console.log.apply null, Array::slice.call arguments
 
-  @exit: (code, msg) ->
-    @echo mgs if msg
+  @exit: (code, msg) =>
+    @echo msg if msg
     process.exit(code or 0)

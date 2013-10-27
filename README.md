@@ -1,10 +1,11 @@
-# authrc for Node [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
+# authrc for Node 
+
+[![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
+[![Dependency Status](https://gemnasium.com/h2non/node-authrc.png)](https://gemnasium.com/h2non/node-authrc)
 
 [authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
 `Note that this is still an beta implementation`
-
-<img src="http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png" alt="Not more!" style="max-width: 250px;"/>
 
 ## About
 

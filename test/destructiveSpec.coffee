@@ -10,6 +10,11 @@ describe 'Destructive testing', ->
     it 'should throw a sintax Error exception', ->
       expect(-> new Authrc('test/fixtures/bad_formed/.authrc')).to.be.throw(Error)
 
+  describe 'empty .authrc file', ->
+
+    it 'should not exists', ->
+      expect(new Authrc('test/fixtures/empty/.authrc').exists()).to.be.false
+
   describe 'error on password decryption', ->
     
     beforeEach ->

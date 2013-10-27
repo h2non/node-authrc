@@ -1,18 +1,20 @@
 program = require 'commander'
 pkg = require '../package.json'
-{ log } = require './common'
+{ echo } = require './common'
 
-[ 'create' ].map( (file) -> "./command/#{file}" ).forEach require
+[ 'create', 'add', 'remove', 'update' ].map( (file) -> "./cli/commands/#{file}" ).forEach require
 
 program
   .version(pkg.version)
 
 program.on '--help', ->
-  log """
+  echo """
       Usage examples:
     
-      $ authrc auth set -u username -f ../.authrc
-      $ authrc create --path /home/user/
+        $ authrc create --path /home/user/
+        $ authrc add set -u username --path ./.authrc
+        $ authrc remove <hostname> 
+        $ authrc update <hostname>
 
   """
 

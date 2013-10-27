@@ -3,11 +3,11 @@ fs = require 'fs'
 Authrc = require '../lib/authrc'
 
 describe 'create/read/update/remove config', ->
-  authrcPath = "#{__dirname}/fixtures/tmp/.authrc"
+  authRcPath = "#{__dirname}/fixtures/tmp/.authrc"
   auth = null
 
   writeJSON = (data) ->
-    fs.writeFileSync authrcPath, JSON.stringify(data, null, 4)
+    fs.writeFileSync authRcPath, JSON.stringify(data, null, 4)
 
   describe 'playing with hosts data', ->
 
@@ -24,7 +24,7 @@ describe 'create/read/update/remove config', ->
       host = null
 
       before ->
-        auth = new Authrc(authrcPath)
+        auth = new Authrc(authRcPath)
 
       it 'should find the file and has some data', ->
         expect(auth.exists()).to.be.true
@@ -55,7 +55,7 @@ describe 'create/read/update/remove config', ->
       host = null
 
       before ->
-        auth = new Authrc(authrcPath)
+        auth = new Authrc(authRcPath)
 
       beforeEach ->
         host = auth.host('https://nonexistant.org')
@@ -95,7 +95,7 @@ describe 'create/read/update/remove config', ->
       host = null
 
       beforeEach ->
-        auth = new Authrc(authrcPath)
+        auth = new Authrc(authRcPath)
 
       beforeEach ->
         host = auth.host('https://my.host.org')
@@ -116,7 +116,7 @@ describe 'create/read/update/remove config', ->
       host = null
 
       beforeEach ->
-        auth = new Authrc(authrcPath)
+        auth = new Authrc(authRcPath)
 
       beforeEach ->
         host = auth.host('https://my.host.org')

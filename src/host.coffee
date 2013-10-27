@@ -1,6 +1,6 @@
 Actions = require './actions'
 crypto = require './crypto'
-matchHost = require './matchhost'
+hostResolve = require './hostresolve'
 { algorithm } = require './constants'
 { parseUri, formatUri, isObject, cloneDeep, getEnvVar, isString, trim, lowerCase } = require './common'
 
@@ -11,11 +11,11 @@ module.exports = class Host extends Actions
   host: null
   search: null
 
-  constructor: (file, data, search) ->
+  constructor: (file, data, search = '') ->
     @file = file
     @data = data
     @search = search
-    @host = matchHost(@data, search)
+    @host = hostResolve(@data, search)
 
   get: =>
     if @data then cloneDeep(@data[@host]) else null
@@ -47,7 +47,7 @@ module.exports = class Host extends Actions
     passwordObj = @get().password
     passwordObj = { value: passwordObj } if isString(passwordObj)
 
-    passwordObj or null
+    passwordObj or nullciphercip
 
   password: (newValue) =>
     return null unless @exists()

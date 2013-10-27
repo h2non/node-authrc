@@ -5,7 +5,7 @@ ciphers = require './ciphers'
 
 module.exports = class
 
-  @default: algorithm
+  @defaultCipher: algorithm
 
   @ciphers: Object.keys(ciphers)
 
@@ -15,10 +15,10 @@ module.exports = class
   @getCipher: (cipher) =>
     ciphers[lowerCase(cipher)] if @cipherExists(cipher)
 
-  @encrypt: (data, key, cipher = @default) =>
+  @encrypt: (data, key, cipher = algorithm) =>
     cipher = crypto.createCipher(@getCipher(cipher), key);
     cipher.update(data, inputEnc, outputEnc) + cipher.final(outputEnc)
 
-  @decrypt: (data, key, cipher = @default) =>
+  @decrypt: (data, key, cipher = algorithm) =>
     decipher = crypto.createDecipher(@getCipher(cipher), key)
     decipher.update(data, outputEnc, inputEnc) + decipher.final(inputEnc)

@@ -1,5 +1,5 @@
 path = require 'path'
-fileChange = require './filechange'
+fileChange = require './lib/filechange'
 Actions = require './actions'
 Host = require './host'
 { version, authRcFile } = require './constants'
