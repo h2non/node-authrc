@@ -13,7 +13,13 @@
     "url": "https://github.com/h2non/node-authrc.git"
   },
   "licenses": "MIT",
-  "main": "lib/authrc.js",
+  "main": "lib/authrc",
+  "directories": {
+    "lib": "./lib"
+  },
+  "bin": {
+    "authrc": "./bin/authrc"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
