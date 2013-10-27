@@ -1,10 +1,9 @@
 path = require 'path'
 program = require 'commander'
-prompt = require 'promptly'
 Authrc = require '../authrc'
 { authRcFile } = require '../constants'
 { echo, exit, fileExists, dirExists } = require '../common'
-{ createHost } = require './actions'
+actions = require './actions'
 
 program
   .command('create')
@@ -33,9 +32,11 @@ program
     auth = new Authrc(filepath)
     auth.file = filepath
 
+    actions = actions(auth)
+
     echo """
     The file will be created in #{filepath}
 
     """
 
-    createHost(auth)
+    actions.createHost(auth)

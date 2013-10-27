@@ -2,18 +2,20 @@ prompt = require 'promptly'
 { ciphers, encrypt } = require '../crypto'
 { echo, exit } = require '../common'
 
-module.exports = 
+module.exports = (auth) -> actions
 
-  createHost: (auth) ->
+actions = 
+
+  writeFile: (data) ->
+    prompt.confirm 'Do you want to save data? [Y/n]', (err, ok) ->
+      exit 0, 'Canceled' unless ok
+      auth.create data, ->
+        echo ''
+        echo 'authrc created succesfully!'.green
+        exit 0
+
+  createHost: () ->
     hostTmpl = {}
-
-    writeFile = ->
-      prompt.confirm 'Do you want to save data? [Y/n]', (err, ok) ->
-        exit 0, 'Canceled' if not ok
-        auth.create hostTmpl, ->
-          echo ''
-          echo 'authrc created succesfully!'.green
-          exit 0
 
     # temporal
     prompt.prompt 'Enter the host name: ', (err, value) ->
@@ -38,10 +40,11 @@ module.exports =
             host.password = value
 
             prompt.confirm 'Do you want to encrypt your password [Y/n]: ', (err, ok) ->
-              return writeFile() if not ok
+              return @writeFile() unless ok
 
               echo '\nAvailable ciphers:'
               echo '-'.cyan, ciphers.join('\n- ').cyan
+              echo ''
 
               prompt.choose 'Choose the cipher algorithm: ', ciphers, (err, value) ->
 
@@ -52,4 +55,5 @@ module.exports =
                   exit 1, "Error:".red + "#{err}" if err
 
                   host.password.value = encrypt(plainPassword, value, host.password.cipher)
-                  writeFile()
+                  @writeFile()
+

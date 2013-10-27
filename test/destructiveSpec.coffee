@@ -47,7 +47,6 @@ describe 'Destructive testing', ->
     describe 'invalid username', ->
 
       it 'should not be a valid auth config', ->
-        console.log(auth.host('bad.username.org').auth())
         expect(auth.host('bad.username.org').exists()).to.be.true
         expect(auth.host('bad.username.org').valid()).to.be.false
 

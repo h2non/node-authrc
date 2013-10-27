@@ -34,7 +34,7 @@ module.exports = class Authrc extends Actions
     Object.keys(@data)
 
   exists: =>
-    Object.keys(@data).length isnt 0
+    @hosts().length isnt 0
 
   hostExists: (string) =>
     @host(string).exists()
