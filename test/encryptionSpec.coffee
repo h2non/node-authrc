@@ -25,7 +25,7 @@ describe 'Password encryption', ->
       expect(host.encrypt(key).password())
         .to.be.equal('8cfe62fb21fc8d9e99718154f8c827214ef362f28497146ec1f612d4fdb86c30')
 
-    describe 'encryption with supported ciphers', ->
+    describe 'with supported ciphers', ->
 
       it 'should encrypt the password with AES256', ->
         expect(host.encrypt(key, 'aes256').password())

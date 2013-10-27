@@ -25,9 +25,8 @@ module.exports = class Common
   @formatUri: (object) ->
     format(object)
 
-  @readJSON: (filepath) =>
-    encoding = if process.versions.node.split('.')[1] is 8 then 'utf8' : { encoding: inputEnc }
-    JSON.parse(fs.readFileSync(filepath, encoding))
+  @readJSON: (filepath) => 
+    JSON.parse(fs.readFileSync(filepath, { encoding: inputEnc }))
 
   @writeJSON: (filepath, data, callback) ->
     data = do ->
