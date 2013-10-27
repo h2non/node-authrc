@@ -26,8 +26,8 @@ module.exports = class Common
     format(object)
 
   @readJSON: (filepath) =>
-    console.log(filepath)
-    JSON.parse(fs.readFileSync(filepath, { encoding: inputEnc }))
+    encoding = if process.versions.node.split('.')[1] is 8 then 'utf8' : { encoding: inputEnc }
+    JSON.parse(fs.readFileSync(filepath, encoding))
 
   @writeJSON: (filepath, data, callback) ->
     data = do ->
