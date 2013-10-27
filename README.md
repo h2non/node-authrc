@@ -9,11 +9,11 @@
 
 ## About
 
-authrc is a standard configuration file that provides a centralized authentication credentials storage for network-based services and resources
+`.authrc` aims to be a standard community well supported which provides a generic and centralized configuration file for authentication credentials management and storage that can be used by applications or services for network-based resources
 
 For more defails, see the current [specification page](http://github.com/adesisnetlife/authrc)
 
-Spec version supported: `0.1`
+Version implemente: `0.1-beta`
 
 ## Getting Started
 
