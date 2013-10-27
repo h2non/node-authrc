@@ -13,7 +13,7 @@
 
 For more defails, see the current [specification page](http://github.com/adesisnetlife/authrc)
 
-Version implemente: `0.1-beta`
+Version implemented: `0.1-beta`
 
 ## Getting Started
 
