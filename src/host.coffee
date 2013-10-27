@@ -11,11 +11,11 @@ module.exports = class Host extends Actions
   host: null
   search: null
 
-  constructor: (file, data, host) ->
+  constructor: (file, data, search) ->
     @file = file
     @data = data
-    @search = host
-    @host = matchHost(@data, host)
+    @search = search
+    @host = matchHost(@data, search)
 
   get: =>
     if @data then cloneDeep(@data[@host]) else null

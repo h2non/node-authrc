@@ -3,6 +3,8 @@
 module.exports = class Actions
 
   add: (host, authObj) =>
+    @data ?= {}
+
     if isObject(host)
       hostObj = host
     else if isString(host) and isObject(authObj)
@@ -12,7 +14,11 @@ module.exports = class Actions
     extend(@data, hostObj)
     @
 
-  create: Actions::add
+  create: (data, callback) =>
+    @data = data
+    @add(data)
+    @save(callback)
+    @
 
   remove: (host) =>
     host ?= @host

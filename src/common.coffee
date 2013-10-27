@@ -3,7 +3,7 @@ path = require 'path'
 { inputEnc } = require './constants'
 { parse, format } = require 'url'
 
-module.exports = class
+module.exports = class Common
 
   @getHomePath: ->
     path.normalize process.env[(if (process.platform is 'win32') then 'USERPROFILE' else 'HOME')] or ''
@@ -26,6 +26,7 @@ module.exports = class
     format(object)
 
   @readJSON: (filepath) =>
+    console.log(filepath)
     JSON.parse(fs.readFileSync(filepath, { encoding: inputEnc }))
 
   @writeJSON: (filepath, data, callback) ->
@@ -98,5 +99,9 @@ module.exports = class
 
     clone
 
-  @log: ->
+  @echo: ->
     console.log.apply null, Array::slice.call arguments
+
+  @exit: (code, msg) ->
+    @echo mgs if msg
+    process.exit(code or 0)

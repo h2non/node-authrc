@@ -1,4 +1,3 @@
-fs = require 'fs'
 path = require 'path'
 fileChange = require './filechange'
 Actions = require './actions'
@@ -12,6 +11,7 @@ module.exports = class Authrc extends Actions
   file: null
   data: {}
 
+  # @throws Error
   constructor: (filepath = process.cwd()) ->
     filepath = getAuthFilePath(path.normalize(filepath))
 
@@ -20,7 +20,7 @@ module.exports = class Authrc extends Actions
       @read()
       fileChange.watch filepath, =>
         try # prevent multiple file access/write when the buffer is empty
-          @data = @read() 
+          @data = @read()
 
   host: (string, data = @data) =>
     new Host(@file, data, string)

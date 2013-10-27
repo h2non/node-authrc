@@ -4,6 +4,8 @@
 
 `Note that this is still an beta implementation`
 
+[[http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png|width=280px]]
+
 ## About
 
 authrc is a standard configuration file that provides a centralized authentication credentials storage for network-based services and resources
@@ -48,7 +50,7 @@ $ authrc
 
 ### Constructor
 
-#### new Authrc(filepath[String]?)
+#### new Authrc([filepath])
 
 ```js
 var Authrc = require('authrc')

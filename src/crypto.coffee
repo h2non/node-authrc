@@ -3,22 +3,22 @@ ciphers = require './ciphers'
 { algorithm, inputEnc, outputEnc } = require './constants'
 { lowerCase } = require './common'
 
-module.exports = 
+module.exports = class
 
-  default: algorithm
+  @default: algorithm
 
-  ciphers: Object.keys(ciphers)
+  @ciphers: Object.keys(ciphers)
 
-  cipherExists: (algorithm) ->
-    ciphers.hasOwnProperty(lowerCase(algorithm))
+  @cipherExists: (cipher) ->
+    ciphers.hasOwnProperty(lowerCase(cipher))
 
-  getAlgorithm: (algorithm) ->
-    ciphers[lowerCase(algorithm)] if @cipherExists(algorithm)
+  @getCipher: (cipher) =>
+    ciphers[lowerCase(cipher)] if @cipherExists(cipher)
 
-  encrypt: (data, key, algorithm = @default) ->
-    cipher = crypto.createCipher(@getAlgorithm(algorithm), key);
+  @encrypt: (data, key, cipher = @default) =>
+    cipher = crypto.createCipher(@getCipher(cipher), key);
     cipher.update(data, inputEnc, outputEnc) + cipher.final(outputEnc)
 
-  decrypt: (data, key, algorithm = @default) ->
-    decipher = crypto.createDecipher(@getAlgorithm(algorithm), key)
+  @decrypt: (data, key, cipher = @default) =>
+    decipher = crypto.createDecipher(@getCipher(cipher), key)
     decipher.update(data, outputEnc, inputEnc) + decipher.final(inputEnc)
