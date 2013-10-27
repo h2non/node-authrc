@@ -4,7 +4,7 @@
 
 `Note that this is still an beta implementation`
 
-![Not more!](http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png|width=200px)
+![Not more!](http://memecrunch.com/meme/8DEQ/realized-this-when-i-forgot-my-password/image.png|width=140px)
 
 ## About
 
