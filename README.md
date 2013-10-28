@@ -211,7 +211,7 @@ auth.save(function (err, data) {
 
 Update the cached config data from disk file. 
 
-By default you dont need to use it because a file  watcher is listening for changes and if happends, reloads automatically data from disk.
+By default you dont need to use it because a file watcher is listening on background for file changes. If happends, it will reload automatically the config from disk.
 
 Return [Auth Object](#new-authrcfilepath)
 
