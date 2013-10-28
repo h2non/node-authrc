@@ -178,14 +178,27 @@ if (!auth.exists()) {
 }
 ```
 
-#### remove(host)
+#### remove([host])
 
 Removes a host from the config. You need to call `save()` method to apply changes in disk
+
+You can pass an argument if you are using the method from `Authrc` object.
+Both `string` and `Host object` types are supported
 
 Return [Auth Object](#new-authrcfilepath)
 
 ```javascript
 auth.remove('my.server.org').hostExists('my.server.org'); // false
+```
+
+```javascript
+var host = auth.host('my.server.org');
+auth.remove(host).hostExists('my.server.org'); // false
+```
+
+```javascript
+var host = auth.host('my.server.org');
+host.remove();
 ```
 
 #### save(callback, [data])
