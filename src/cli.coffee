@@ -11,7 +11,7 @@ program
                           Useful for multiple installed implementations
     ''')
 
-program.on '--implementation', ->
+program.on 'implementation', ->
   echo 'node'
 
 program.on '--help', ->
