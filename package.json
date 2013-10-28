@@ -1,6 +1,6 @@
 {
   "name": "authrc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "authrc implementation for Node.js",
   "homepage": "http://github.com/h2non/node-authrc",
   "bugs": "https://github.com/h2non/node-authrc/issues",
