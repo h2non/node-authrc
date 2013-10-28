@@ -123,7 +123,7 @@ Return `true` if the `.authrc` file was found and it's not empty
 
 Find a host searching by the given `string` in the current `.authrc` file
 
-```javascript')
+```javascript
 auth.host('http://my.server.org').exists();
 ```
 
