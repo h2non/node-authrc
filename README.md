@@ -425,9 +425,9 @@ if (!host.isEncrypted()) {
 
 `Host Object` has the inherited methods also available from [Auth Object](#new-authrcfilepath):
 
-- [add()](#add)
-- [save()](#save)
-- [create()](#create)
+- [add()](##addhost-authobject)
+- [save()](#savecallback-data)
+- [create()](#createdata-callback)
 - [read()](#read)
 
 ### Supported cipher algorithms
