@@ -29,6 +29,13 @@ For CLI usage is recommended you install it as global package:
 $ npm install -g authrc
 ```
 
+## Features
+
+- Simple and pragmatic JavaScript API
+- Full featured command-line interface support
+- File change watcher with auto reload config
+- Heavily tested
+
 ## Command-line interface
 
 ```
@@ -453,12 +460,11 @@ if (!host.isEncrypted()) {
 
 ### Supported cipher algorithms
 
-- AES128
-- AES192 (default)
+- AES128 (default)
 - AES256
-- Blowfish
 - Camellia128
 - Camellia256
+- Blowfish
 - CAST
 - IDEA
 - SEED

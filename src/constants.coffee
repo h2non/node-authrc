@@ -3,4 +3,4 @@ module.exports =
   authRcFile: '.authrc'
   inputEnc: 'utf8'
   outputEnc: 'hex'
-  algorithm: 'aes192'
+  algorithm: 'aes128'

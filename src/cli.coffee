@@ -6,6 +6,13 @@ pkg = require '../package.json'
 
 program
   .version(pkg.version)
+  .option('-I, --implementation', '''
+    Current authrc implementation language.
+                          Useful for multiple installed implementations
+    ''')
+
+program.on '--implementation', ->
+  echo 'node'
 
 program.on '--help', ->
   echo """
