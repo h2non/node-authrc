@@ -127,11 +127,92 @@ Find a host searching by the given `string` in the current `.authrc` file
 auth.host('http://my.server.org').exists();
 ```
 
-Return [Host Object](#Host)
+Return [Host Object](#host-object)
 
 #### find(string)
 
 Alias to `host()`
+
+#### add(host, authObject)
+
+Add new host to the current `.authrc` config
+
+Return [Auth Object](#new-authrcfilepath)
+
+```javascript
+auth.add('my.server.org', {
+  username: 'lisa',
+  password: 'my_p@s$w0rd'
+})
+```
+
+#### create(data, callback)
+
+Create a complete new config. This method creates the config and save it into disk.
+Useful for creating new files.
+
+Return [Auth Object](#new-authrcfilepath)
+
+```javascript
+var auth = new Authrc('new/path');
+
+var myConfig = {
+  'my.server.org': {
+    username: 'lisa',
+    password: 'my_p@s$w0rd'
+  },
+  'another.server.org': {
+    username: 'john',
+    password: '@an0th3r_p@s$w0rd'
+  }
+};
+
+if (!auth.exists()) {
+   auth.create(config, function (err) {
+    if (err) {
+      console.error('Error creating the file:', err);
+      return;
+    }
+    console.log('File created successfully!'); 
+   });
+}
+```
+
+#### remove(host)
+
+Removes a host from the config. You need to call `save()` method to apply changes into disk
+
+Return [Auth Object](#new-authrcfilepath)
+
+```javascript
+auth.remove('my.server.org').hostExists('my.server.org'); // false
+```
+
+#### save(callback, [data])
+
+Save config object into disk. This is a asynchronous task, so you need to pass a callback function to handle it.
+
+Optionally you can pass the whole `data` Object to save in disk (but be aware about how to use it in order to prevent unexpected behavior or object schema errors)
+
+Return [Auth Object](#new-authrcfilepath)
+
+```javascript
+auth.save(function (err, data) {
+  if (err) {
+    console.error('Cannot save the data:', err);
+    return;
+  } 
+  console.log('Config data saved succesfully');
+});
+```
+
+#### read()
+
+Update the cached config data from disk file. 
+
+By default you dont need to use it because a file  watcher is listening for changes and if happends, reloads automatically data from disk.
+
+Return [Auth Object](#new-authrcfilepath)
 
 #### hosts()
 
@@ -177,11 +258,11 @@ Return `true` if the current `.authrc` file is located globally (in `$HOME/%USER
 
 ### Host Object
 
-#### auth([string|object])
+#### auth([username], [password])
 
 Returns the authentication config `object`
 
-If argument passed, updates the authentication data Object
+If arguments passed, updates the authentication data Object
 
 ```javascript
 auth.host('http://my.server.org').auth(); // { username: 'john', password: '$up3r-p@ssw0rd' }
@@ -194,6 +275,13 @@ auth.host('http://my.server.org').auth({
     value: '41b717a64c6b5753ed5928fd8a53149a7632e4ed1d207c91',
     cipher: 'idea'
   }
+});
+```
+
+```javascript
+auth.host('http://my.server.org').auth('michael', {
+  value: '41b717a64c6b5753ed5928fd8a53149a7632e4ed1d207c91',
+  cipher: 'idea'
 });
 ```
 
@@ -260,6 +348,17 @@ auth.host('my.server.org').set({
 });
 ```
 
+#### remove()
+
+Remove the current host from config
+
+Return a [Host Object](#host-object)
+
+```javascript
+auth.host('my.server.org').remove();
+auth.save();
+```
+
 #### valid()
 
 Return `true` if the current host authentication credentials are valid
@@ -304,7 +403,7 @@ if (!host.isEncrypted()) {
 
 #### encrypt([key], [cipher])
 
-Return a `Host Object`
+Return a [Host Object](#host-object)
 
 The `key` argument is required if the current password has no `envKey` variable defined
 
@@ -319,6 +418,13 @@ if (!host.isEncrypted()) {
   console.log('Encrypted:', host.password());
 }
 ```
+
+`Host Object` has the inherited methods also available from [Auth Object](#new-authrcfilepath):
+
+- [add()](#add)
+- [save()](#save)
+- [create()](#create)
+- [read()](#read)
 
 ### Supported cipher algorithms
 
