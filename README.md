@@ -5,7 +5,7 @@
 
 [authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
-`Still a beta implementation`
+`Still a beta version`
 
 ## About
 
