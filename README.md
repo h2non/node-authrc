@@ -5,7 +5,7 @@
 
 [authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
 
-`Note that this is still a beta implementation`
+`Still a beta`
 
 ## About
 
@@ -180,7 +180,7 @@ if (!auth.exists()) {
 
 #### remove(host)
 
-Removes a host from the config. You need to call `save()` method to apply changes into disk
+Removes a host from the config. You need to call `save()` method to apply changes in disk
 
 Return [Auth Object](#new-authrcfilepath)
 
@@ -190,9 +190,10 @@ auth.remove('my.server.org').hostExists('my.server.org'); // false
 
 #### save(callback, [data])
 
-Save config object into disk. This is a asynchronous task, so you need to pass a callback function to handle it.
+Save the current config in disk. 
+This is a asynchronous task, so you need to pass a callback function to handle it.
 
-Optionally you can pass the whole `data` Object to save in disk (but be aware about how to use it in order to prevent unexpected behavior or object schema errors)
+Optionally you can pass the whole `data` object that overrides the currently cached (but be aware about how to use it in order to prevent unexpected behavior or object schema errors)
 
 Return [Auth Object](#new-authrcfilepath)
 
