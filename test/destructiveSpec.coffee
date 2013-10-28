@@ -1,7 +1,7 @@
 { expect } = require '../node_modules/chai/chai'
 Authrc = require '../lib/authrc'
 
-describe 'Destructive testing', ->
+describe 'Destructive malefic testing', ->
   key = '@_$vp€R~k3y'
   auth = null
 
@@ -61,4 +61,4 @@ describe 'Destructive testing', ->
         expect(auth.host('bad.auth.org').exists()).to.be.true
         expect(auth.host('bad.auth.org').valid()).to.be.false
 
-  # more test in process...
+  # more malefic test cases in process...

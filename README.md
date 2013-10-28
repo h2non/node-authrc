@@ -481,6 +481,7 @@ See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md
 
 - Add support for host based regex expressions?
 - Add CLI full support
+- Add more destructive test cases
 - Add E2E test suite
 - Host factory Object
 

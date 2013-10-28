@@ -1,0 +1,27 @@
+/Users/h2non/projects/node-authrc/bin/authrc create
+----------------------------------------------------
+The file will be created in /Users/h2non/projects/node-authrc/test/fixtures/tmp/.authrc
+
+Enter the host name: my.server.org
+Enter the user name: john
+Enter the password: p@ssw0rd
+Confirm the password: p@ssw0rd
+Do you want to encrypt your password [Y/n]: y
+
+Supported ciphers:
+[36m- aes128[39m[36m (recommended)[39m
+[36m- aes256[39m
+[36m- blowfish[39m
+[36m- camellia128[39m
+[36m- camellia256[39m
+[36m- cast[39m
+[36m- idea[39m
+[36m- seed[39m
+
+Choose the cipher algorithm: blowfish
+Enter the password key: d€cypt
+Confirm the password key: d€cypt
+Do you want to define a decrypt key [Y/n]: y
+Enter the descrypt key environment variable (case sensitive): MY_SECRET_DECRYPT_KEY
+Do you want to save? [Y/n]: y
+[32m.authrc file created successfully in /Users/h2non/projects/node-authrc/test/fixtures/tmp[39m

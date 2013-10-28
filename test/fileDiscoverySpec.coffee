@@ -63,7 +63,25 @@ describe 'authrc file discovery', ->
       it 'should not be a global file path', ->
         expect(auth.isGlobalFile()).to.be.false
 
-  describe 'without defining a explicit path', ->
+  describe 'auto discovery without defining a explicit path', ->
+
+    describe 'wit existant file in the current working directory', ->
+      cwd = process.cwd()
+
+      before ->
+        process.chdir 'test/fixtures/basic/'
+   
+      after ->
+        process.chdir cwd
+
+      beforeEach -> 
+        auth = new Authrc
+
+      it 'should not find the file and content exists', ->
+        expect(auth.exists()).to.be.true
+
+      it 'should not be a global file path', ->
+        expect(auth.isGlobalFile()).to.be.false
 
     describe 'wit non-existant $HOME file', ->
       homePath = process.env[getHomeVar()]
