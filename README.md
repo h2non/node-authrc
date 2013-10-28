@@ -11,7 +11,7 @@
 
 `.authrc` aims to be a standard community well supported which provides a generic and centralized configuration file for authentication credentials management and storage that can be used by applications or services for network-based resources
 
-For more defails, see the current [specification page](http://github.com/adesisnetlife/authrc)
+For more defails, see the current `authrc` [specification](http://github.com/adesisnetlife/authrc)
 
 Version implemented: `0.1-beta`
 
@@ -441,7 +441,7 @@ if (!host.isEncrypted()) {
 - IDEA
 - SEED
 
-For more information, see the [specification page](https://github.com/adesisnetlife/authrc)
+For more information, see the `authrc` [specification](https://github.com/adesisnetlife/authrc)
 
 ## Release History
 
