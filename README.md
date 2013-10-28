@@ -34,7 +34,7 @@ $ npm install -g authrc
 - Simple and pragmatic JavaScript API
 - Full featured command-line interface support
 - File change watcher with auto reload config
-- Heavily tested
+- Heavily tested with full coverage
 
 ## Command-line interface
 
