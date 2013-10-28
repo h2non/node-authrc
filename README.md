@@ -217,11 +217,11 @@ Return [Auth Object](#new-authrcfilepath)
 
 #### hosts()
 
-Return an `Array` the existent hosts in the current `.authrc` file
+Return an `Array` with the existent hosts in the current `.authrc` file
 
 #### getData()
 
-Return the `.authrc` Object found on the system. 
+Return the `.authrc` object found on the system. 
 
 ```javascript
 if (auth.exists()) {
@@ -263,7 +263,7 @@ Return `true` if the current `.authrc` file is located globally (in `$HOME/%USER
 
 Returns the authentication config `object`
 
-If arguments passed, updates the authentication data Object
+If arguments passed, updates the authentication data object
 
 ```javascript
 auth.host('http://my.server.org').auth(); 
