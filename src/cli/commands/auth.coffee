@@ -6,10 +6,11 @@ Authrc = require '../../authrc'
 processes = require '../processes'
 
 program
-  .command('remove <host>')
-  .description('\n  Remove a host from .authrc'.cyan)
+  .command('auth <host>')
+  .description('\n  Get the authencation credentials from the given host'.cyan)
   .usage('<host>'.cyan)
   .option('-p, --path <path>', 'Path to the .authrc file'.cyan)
+  .option('-u, --user', 'Get the username'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:

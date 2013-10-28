@@ -45,6 +45,7 @@ describe 'Command-line testing', ->
       .error (err) ->
         throw new Error err
       .end (code) ->
+        expect(code).to.be.equal(0)
         expect(fileExists()).to.be.true
         done()
 
