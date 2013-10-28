@@ -63,7 +63,7 @@ $ authrc --help
 
 ## Programmatic API
 
-```
+```javascript
 var Authrc = require('authrc');
 var auth = new Authrc('file/to/.authrc');
 var host;
