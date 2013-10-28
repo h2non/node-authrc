@@ -265,7 +265,8 @@ Returns the authentication config `object`
 If arguments passed, updates the authentication data Object
 
 ```javascript
-auth.host('http://my.server.org').auth(); // { username: 'john', password: '$up3r-p@ssw0rd' }
+auth.host('http://my.server.org').auth(); 
+// { username: 'john', password: '$up3r-p@ssw0rd' }
 ```
 
 ```javascript
@@ -290,7 +291,8 @@ auth.host('http://my.server.org').auth('michael', {
 Return the search URI/URL `string` with authentication credentials
 
 ```javascript 
-auth.host('my.server.org').auth(); // http://jogn:password@my.server.org
+auth.host('my.server.org').auth(); 
+// http://jogn:password@my.server.org
 ```
 
 #### exists()
@@ -332,7 +334,8 @@ auth.host('my.server.org').password('my_n€w_p@s$w0rd');
 Return the fill authentication `object` 
 
 ```javascript
-auth.host('my.server.org').get(); // { username: 'john', password: 'myP@ssw0rd' }
+auth.host('my.server.org').get(); 
+// { username: 'john', password: 'myP@ssw0rd' }
 ```
 
 #### set(object)
