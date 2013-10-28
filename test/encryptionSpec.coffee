@@ -59,5 +59,5 @@ describe 'Password encryption', ->
       it 'should try to encrypt the password with 3DES', ->
         expect(-> host.encrypt(key, '3des')).to.throw(TypeError)
 
-      it 'should try to encrypt the password with AES512', ->
+      it 'should try to encrypt the password with AES192', ->
         expect(-> host.encrypt(key, 'AES512')).to.throw(TypeError)
