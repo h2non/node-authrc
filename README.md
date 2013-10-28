@@ -452,7 +452,7 @@ if (!host.isEncrypted()) {
 }
 ```
 
-`Host Object` has the inherited methods also available from [Auth Object](#new-authrcfilepath):
+`Host Object` has the following inherited methods (which are also available from [Auth Object](#new-authrcfilepath)):
 
 - [add()](##addhost-authobject)
 - [save()](#savecallback-data)
