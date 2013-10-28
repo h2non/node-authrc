@@ -74,11 +74,12 @@ module.exports = class Host extends Actions
     key = getEnvVar(passwordObj.envKey) if passwordObj.envKey?
     key or null
 
-  cipher: =>
+  cipher: (cipher) =>
     return null unless @exists()
 
     password = @getPasswordObj() 
     return null if not isObject(password)
+    password.cipher = cipher if cipher? and crypto.cipherExists(cipher)
 
     if password.cipher
       cipher = trim(lowerCase(password.cipher))

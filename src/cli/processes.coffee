@@ -14,7 +14,7 @@ module.exports =
         done()
 
     promptPassword = (done) ->
-      prompt.password (input) ->
+      prompt.password true, (input) ->
         authObj.password = input
         done()
 
@@ -30,13 +30,23 @@ module.exports =
         echo "- #{cipher}".cyan + if cipher is defaultCipher then ' (recommended)'.cyan else ''
       echo ''
 
-      prompt.choose 'Choose the cipher algorithm: ', ciphers, (input) ->
+      prompt.choose 'Choose the cipher algorithm', ciphers, (input) ->
         authObj.password = { cipher: input, value: authObj.password }
         done()
 
     promptPasswordKey = (done) ->
       prompt.password 'the password key', (input) ->
         authObj.password.value = encrypt(authObj.password.value, input, authObj.password.cipher)
+        done()
+
+    promptDecryptKey = (done) ->
+      prompt.confirm 'Do you want to define a decrypt key', (ok) ->
+        return promptSaveFile() unless ok
+        done()
+
+    promptDecryptKeyValue = (done) ->
+      prompt.enter 'Enter the descrypt key environment variable (case sensitive)', (input) ->
+        authObj.password.envKey = input
         done()
 
     promptSaveFile = ->
@@ -50,6 +60,8 @@ module.exports =
       promptEncrypt
       promptChooseCipher
       promptPasswordKey
+      promptDecryptKey
+      promptDecryptKeyValue
       promptSaveFile
     ]
 

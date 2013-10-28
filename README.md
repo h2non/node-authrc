@@ -367,9 +367,12 @@ auth.save();
 
 Return `true` if the current host authentication credentials are valid
 
-#### cipher()
+#### cipher([string])
 
 Return the password cipher algorithm `string` if the password was encrypted
+
+If argument is passed, it defines the cipher algorithm to use for the current password.
+The `string` must be one of the listed [supported ciphers](#supported-cipher-algorithms) algorithms
 
 #### encrypted()
 
@@ -453,6 +456,7 @@ See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md
 - Add support for host based regex expressions?
 - Add CLI full support
 - Add E2E test suite
+- Host factory Object
 
 ## License
 
