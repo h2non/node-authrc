@@ -56,8 +56,10 @@ $ authrc --help
 
   Options:
 
-    -h, --help     output usage information
-    -V, --version  output the version number
+    -h, --help            output usage information
+    -V, --version         output the version number
+    -I, --implementation  Current authrc implementation language.
+                          Useful for multiple installed implementations
 
   Usage examples:
 
