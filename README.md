@@ -215,6 +215,10 @@ By default you dont need to use it because a file watcher is listening on backgr
 
 Return [Auth Object](#new-authrcfilepath)
 
+#### update()
+
+Alias to `read()`
+
 #### hosts()
 
 Return an `Array` with the existent hosts in the current `.authrc` file
@@ -432,6 +436,7 @@ if (!host.isEncrypted()) {
 - [save()](#savecallback-data)
 - [create()](#createdata-callback)
 - [read()](#read)
+- [update()](#update) 
 
 ### Supported cipher algorithms
 

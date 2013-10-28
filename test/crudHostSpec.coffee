@@ -112,6 +112,11 @@ describe 'create/read/update/remove config', ->
         it 'should remove properly from Host class', ->
           expect(host.remove().exists()).to.be.false
 
+        describe 'passing the Host object', ->
+
+          it 'should remove properly from Authrc class', ->
+            expect(auth.remove(host).hostExists('https://my.host.org')).to.be.false
+
     describe 'update', ->
       host = null
 
