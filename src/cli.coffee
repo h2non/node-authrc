@@ -19,7 +19,7 @@ program.on '--help', ->
       Usage examples:
     
         $ authrc create --path /home/user/
-        $ authrc add --path ./.authrc
+        $ authrc add 
         $ authrc remove my.host.org
         $ authrc update my.host.org
         $ authrc decrypt e9b90003128c4215ba005a08615fa64f
