@@ -2,7 +2,9 @@ program = require 'commander'
 pkg = require '../package.json'
 { echo } = require './common'
 
-[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt' ].map( (file) -> "./cli/commands/#{file}" ).forEach require
+[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt' ]
+  .map( (file) -> "./cli/commands/#{file}" )
+  .forEach require
 
 program
   .version(pkg.version)
