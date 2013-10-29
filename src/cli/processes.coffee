@@ -5,6 +5,9 @@ async = require 'async'
 
 module.exports = 
 
+  passwordAsk: (successFn) ->
+    prompt.passwordAsk 'the password key', true, successFn
+
   createCredentials: (successFn) ->
     authObj = {}
 

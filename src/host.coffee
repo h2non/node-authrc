@@ -35,11 +35,13 @@ module.exports = class Host extends Actions
   
   valid: Host::isValid
 
-  username: (newValue) =>
+  user: (newValue) =>
     return null if not @exists()
 
     @data[@host].username = newValue if newValue? and isString(newValue)
     @get().username or null
+
+  username: Host::user
 
   getPasswordObj: =>
     return null unless @exists()

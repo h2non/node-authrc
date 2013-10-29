@@ -1,4 +1,4 @@
-# authrc for Node 
+# authrc for node 
 
 [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
 [![Dependency Status](https://gemnasium.com/h2non/node-authrc.png)](https://gemnasium.com/h2non/node-authrc)
@@ -13,7 +13,7 @@
 
 For more defails, see the current `authrc` [specification](http://github.com/adesisnetlife/authrc)
 
-Version implemented: `0.1-beta`
+`authrc` spec version supported: `0.1-beta`
 
 ## Getting Started
 
@@ -53,6 +53,12 @@ $ authrc --help
       Remove a host from .authrc
     update [options] <host> 
       Update a host from .authrc
+    auth [options] <host>  
+      Get the authencation credentials from the given host
+    decrypt [options] <password> 
+      Utility for easy password decryption
+    encrypt [options] <password> 
+      Utility for easy password encryption
 
   Options:
 
@@ -67,6 +73,8 @@ $ authrc --help
     $ authrc add --path ./.authrc
     $ authrc remove my.host.org
     $ authrc update my.host.org
+    $ authrc decrypt e9b90003128c4215ba005a08615fa64f
+    $ authrc encrypt p@sw0rd
 
 ```
 
@@ -330,7 +338,7 @@ Return `true` if the host was found and auth credentials data exists
 auth.host('my.server.org').exists(); // true
 ```
 
-#### username(string)
+#### user(string)
 
 Return the username `string` for the current host
 
@@ -341,6 +349,10 @@ auth.host('my.server.org').username(); // 'john'
 ```
 auth.host('my.server.org').username('michael');
 ```
+
+#### username(string)
+
+Alias to `user()`
 
 #### password([string|object])
 

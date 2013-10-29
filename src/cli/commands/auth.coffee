@@ -3,46 +3,56 @@ program = require 'commander'
 Authrc = require '../../authrc'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
+{ fileNotFound } = require '../messages'
 processes = require '../processes'
 
 program
   .command('auth <host>')
   .description('\n  Get the authencation credentials from the given host'.cyan)
   .usage('<host>'.cyan)
-  .option('-p, --path <path>', 'Path to the .authrc file'.cyan)
-  .option('-u, --user', 'Get the username'.cyan)
+  .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
+  .option('-u, --user', 'Get the host username value'.cyan)
+  .option('-p, --password', 'Get the host password value'.cyan)
+  .option('-c, --cipher', 'Get the host password cipher'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
 
-            $ authrc remove my.host.org 
-            $ authrc remove my.host.org:8080 --path /home/user/
+            $ authrc auth my.host.org 
+            $ authrc auth my.host.org --path /home/user/
+            $ authrc auth my.host.org -cup --path /home/user/
         
     '''
   )
   .action (hostname, options) ->
     filepath = options.path or process.cwd()
 
-    if dirExists(filepath)
-      filepath = path.normalize(path.join(filepath, authRcFile))
-
-    unless fileExists(filepath)
-      echo ".authrc file not found".red
-      echo 'Be sure the path is correct. You can use the command "create" instead'
-      echo "Type --help to see other available commands"
-      exit 0
+    if dirExists filepath
+      filepath = path.normalize path.join(filepath, authRcFile)
+    
+    unless fileExists filepath
+      fileNotFound filepath
+      exit 1
 
     try
-      auth = new Authrc(filepath)
+      auth = new Authrc filepath
       auth.file = filepath
     catch err
       exit 1, "Error reading .authrc file: #{err}".red
 
-    host = auth.host(hostname)
+    host = auth.find hostname
     
-    exit 0, "Hostname not found in #{filepath}" unless host.exists()
+    exit 2, "Host '#{hostname}' not found in #{filepath}" unless host.exists()
+    exit 1, "Host invalid '#{host.host}'. Check the file: #{filepath}" unless host.valid()
 
-    host.remove()
-    auth.save ->
-      exit 0, "Host '#{hostname}' removed successfully in #{filepath}".green
-      
+    { user, password } = options
+    if user or password 
+      echo host.username() if user
+      echo host.password() if password
+    else
+      { user, password } = host.auth()
+      echo user
+      echo password
+
+    echo host.cipher() if options.cipher and host.encrypted()
+    

@@ -18,14 +18,12 @@ describe 'Command-line testing', ->
   before ->
     process.chdir authrcPath
     removeFile()
-  
 
+  after ->
+    removeFile()
+    process.chdir cwd
 
   describe 'create command', ->  
-
-    after ->
-      removeFile()
-      process.chdir cwd
 
     it 'should create a new .authrc file via prompt', (done) ->
 

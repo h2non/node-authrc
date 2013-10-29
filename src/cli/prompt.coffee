@@ -25,6 +25,11 @@ module.exports =
           exit 1, 'The passwords did not match. Try again'.red
         callback(password)
 
+  passwordAsk: (callback, noValidate, message) ->
+    { callback, message, noValidate } = normalizeArgs.apply null, arguments
+    validateObj = { validator: validator.password } unless noValidate
+    prompt "Enter #{message or 'the password'}: ", validateObj, 'password', handleResponse callback
+
   confirm: (message, callback) ->
     prompt "#{message} [Y/n]:", 'confirm', handleResponse callback
 

@@ -3,12 +3,13 @@ program = require 'commander'
 Authrc = require '../../authrc'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
+{ fileAlreadyExists } = require '../messages'
 processes = require '../processes'
 
 program
   .command('create')
   .description('\n  Create new .authrc file'.cyan)
-  .option('-p, --path <path>', 'Path to place the .authrc created file'.cyan)
+  .option('-f, --path <path>', 'Path to place the .authrc created file'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
@@ -21,17 +22,15 @@ program
   .action (options) ->
     filepath = options.path or process.cwd()
 
-    if dirExists(filepath)
-      filepath = path.normalize(path.join(filepath, authRcFile))
-
-    if fileExists(filepath)
-      echo ".authrc file already exists in: #{filepath}".red
-      echo 'Use command "add" instead of "create"'
-      echo "Type --help to see other available commands"
+    if dirExists filepath
+      filepath = path.normalize path.join(filepath, authRcFile)
+    
+    if fileExists filepath
+      fileAlreadyExists()
       exit 0
 
     try
-      auth = new Authrc(filepath)
+      auth = new Authrc filepath
       auth.file = filepath
     catch err
       exit 1, "Error reading .authrc file: #{err}".red
@@ -42,5 +41,9 @@ program
     """
 
     processes.createHost (data) ->
-      auth.create data, ->
-        exit 0, ".authrc file created successfully in #{path.dirname(filepath)}".green
+      try 
+        auth.create data, ->
+          exit 0, ".authrc file created successfully in #{path.dirname(filepath)}".green
+      catch err
+        exit 1, "Error while creating the file: #{err}".red
+      

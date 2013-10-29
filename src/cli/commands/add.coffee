@@ -3,12 +3,13 @@ program = require 'commander'
 Authrc = require '../../authrc'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
+{ fileNotFound } = require '../messages'
 processes = require '../processes'
 
 program
   .command('add')
   .description('\n  Add new host to an existant .authrc file'.cyan)
-  .option('-p, --path <path>', 'Path to the .authrc file'.cyan)
+  .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
@@ -21,17 +22,15 @@ program
   .action (options) ->
     filepath = options.path or process.cwd()
 
-    if dirExists(filepath)
-      filepath = path.normalize(path.join(filepath, authRcFile))
+    if dirExists filepath
+      filepath = path.normalize path.join(filepath, authRcFile)
 
-    unless fileExists(filepath)
-      echo ".authrc file not found".red
-      echo 'Be sure the path is correct. You can use the command "create" instead'
-      echo "Type --help to see other available commands"
-      exit 0
+    unless fileExists filepath
+      fileNotFound filepath
+      exit 1
 
     try
-      auth = new Authrc(filepath)
+      auth = new Authrc filepath
       auth.file = filepath
     catch err
       exit 1, "Error reading .authrc file: #{err}".red
