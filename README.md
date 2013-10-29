@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/h2non/node-authrc.png?branch=master)](http://travis-ci.org/h2non/node-authrc)
 [![Dependency Status](https://gemnasium.com/h2non/node-authrc.png)](https://gemnasium.com/h2non/node-authrc)
 
-[authrc](http://github.com/adesisnetlife/authrc) implementation for Node.js
+[authrc](http://github.com/adesisnetlife/authrc) implementation for [node.js](http://nodejs.org)
 
 `Still a beta version`
 
