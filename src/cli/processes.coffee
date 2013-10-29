@@ -1,7 +1,7 @@
 prompt = require './prompt'
 async = require 'async'
 { ciphers, encrypt, defaultCipher } = require '../crypto'
-{ echo, exit } = require '../common'
+{ echo, exit, isRegex, validRegex } = require '../common'
 
 module.exports = 
 
@@ -48,7 +48,7 @@ module.exports =
         done()
 
     promptDecryptKeyValue = (done) ->
-      prompt.enter 'Enter the descrypt key environment variable (case sensitive)', (input) ->
+      prompt.enter 'Enter the decrypt key environment variable (case sensitive)', (input) ->
         authObj.password.envKey = input
         done()
 

@@ -22,8 +22,13 @@ program.on '--help', ->
         $ authrc add 
         $ authrc remove my.host.org
         $ authrc update my.host.org
+        $ authrc auth my.host.org
         $ authrc decrypt e9b90003128c4215ba005a08615fa64f
         $ authrc encrypt p@sw0rd
+
+      Command specific help:
+
+        $ authrc <command> --help
 
   """
 

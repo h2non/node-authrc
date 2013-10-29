@@ -4,12 +4,12 @@ validator = require './validator'
 
 module.exports =
 
-  enter: (callback, message) ->
-    { callback, message } = normalizeArgs.apply null, arguments
-    prompt "#{message}:", handleResponse callback
+  enter: (callback, message, validateObj) ->
+    { callback, message, validateObj } = normalizeArgs.apply null, arguments
+    prompt "#{message}:", validateObj, handleResponse callback
 
   hostname: (callback) ->
-    @enter 'Enter the host name', callback
+    @enter 'Enter the host name', { validator: validator.regex }, callback
 
   username: (callback) ->
     @enter 'Enter the user name', callback
@@ -44,7 +44,6 @@ handleResponse = (callback) ->
 
 getType = (value) ->
   type = typeof value
-  type = 'null' if type is null
   type = 'array' if isArray value
   type
 
@@ -77,11 +76,11 @@ normalizeArgs = ->
   temp = {}
 
   Array::slice.call(arguments)
-    .forEach (value, i) ->
+    .forEach (value) ->
       switch getType value
         when 'string' then temp.message = value
+        when 'object' then temp.validateObj = value if value isnt null
         when 'function' then temp.callback = value
         when 'boolean' then temp.noValidate = value
-
   temp
 

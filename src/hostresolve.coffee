@@ -1,5 +1,5 @@
 { diffChars } = require './lib/diff'
-{ isUri, formatUri, parseUri, isObject, trim } = require './common'
+{ isUri, formatUri, parseUri, isObject, trim, validRegex } = require './common'
 
 module.exports = (obj, string) ->
   return string if not isUri(string) or not isObject(obj)
@@ -17,7 +17,11 @@ module.exports = (obj, string) ->
     .map (host) ->
       trim(host)
     .filter (host) ->
-      parseUri(host).hostname is hostParsed.hostname
+      if validRegex host 
+        matched = new RegExp(host, 'i').test(host)  
+      else
+        matched = parseUri(host).hostname is hostParsed.hostname
+      matched
     .forEach matchDiffs
 
   # get matched values

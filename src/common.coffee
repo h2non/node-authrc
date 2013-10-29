@@ -1,3 +1,4 @@
+
 fs = require 'fs'
 path = require 'path'
 { inputEnc } = require './constants'
@@ -10,6 +11,17 @@ module.exports = class Common
 
   @getEnvVar: (name) =>
     process.env[@trim(name)]
+
+  @isRegex: (regexString) ->
+    (/^\/.*\/$/).test regexString
+
+  @validRegex: (string) =>
+    return no unless @isRegex(string)
+    try 
+      new RegExp string
+      return yes
+    catch err
+      return no
 
   @parseUri: (string) ->
     host = parse(string)

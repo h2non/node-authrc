@@ -1,6 +1,11 @@
-{ isString } = require '../common'
+{ isString, isRegex, validRegex } = require '../common'
 
 module.exports = class
+
+  @regex = (value) ->
+    return value unless isRegex value
+    throw new Error 'Value is not a valid regular expression'.red unless validRegex value
+    value
 
   @notEmpty: (value) ->
     throw new Error 'Value cannot be empty'.red unless value.length

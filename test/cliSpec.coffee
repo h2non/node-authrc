@@ -38,7 +38,7 @@ describe 'Command-line testing', ->
         .on(/Enter the password key/).respond('d€cypt\n')
         .on(/Confirm the password key/).respond('d€cypt\n')
         .on(/Do you want to define a decrypt key/).respond('y\n')
-        .on(/Enter the descrypt key environment variable/).respond('MY_SECRET_DECRYPT_KEY\n')
+        .on(/Enter the decrypt key environment variable/).respond('MY_SECRET_DECRYPT_KEY\n')
         .on(/Do you want to save/).respond('y\n')
       .error (err) ->
         throw new Error err
