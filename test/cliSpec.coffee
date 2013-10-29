@@ -75,4 +75,6 @@ describe 'Command-line testing', ->
 
       it 'should can be transparently decrypted', ->
         expect(auth.find('my.server.org').canDecrypt()).to.be.true
+  
+  # todo
 

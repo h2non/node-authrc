@@ -8,7 +8,7 @@ describe 'Password decryption', ->
   host = null
 
   beforeEach -> 
-    auth = new Authrc(authrcPath)
+    auth = new Authrc authrcPath
 
   describe 'password value and aes256 cipher', ->
 

@@ -10,7 +10,7 @@ describe 'Password encryption', ->
   describe 'existant host with plain password', ->
 
     beforeEach -> 
-      auth = new Authrc(authrcPath)
+      auth = new Authrc authrcPath
 
     beforeEach -> 
       host = auth.host('http://git.server.org')

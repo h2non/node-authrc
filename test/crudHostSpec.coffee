@@ -136,42 +136,39 @@ describe 'create/read/update/remove config', ->
 
         it 'should update the username for the given host', ->
           expect(host.username('superman')).to.be.equal('superman')
-          expect(host.auth()).to.deep.equal({
+          expect(host.auth()).to.deep.equal
             username: 'superman'
             password: 'p@s$w0rd'
-          })
 
         it 'should update the password for the given host', ->
           expect(host.password('my_n€w_svp3r_p@s$w0rd')).to.be.equal('my_n€w_svp3r_p@s$w0rd')
-          expect(host.auth()).to.deep.equal({
+          expect(host.auth()).to.deep.equal
             username: 'richard'
             password: 'my_n€w_svp3r_p@s$w0rd'
-          })
 
       describe 'update both username and password', -> 
 
         it 'should update the auth for the given host using strings', ->
-          expect(host.auth('superman', 'my_n€w_svp3r_p@s$w0rd')).to.deep.equal({
+          expect(host.auth('superman', 'my_n€w_svp3r_p@s$w0rd')).to.deep.equal
             username: 'superman'
             password: 'my_n€w_svp3r_p@s$w0rd'
-          })
 
         it 'should update the auth for the given host using password object', ->
-          expect(host.auth('superman', { value: 'my_n€w_svp3r_p@s$w0rd', cipher: 'plain' } )).to.deep.equal({
-            username: 'superman'
-            password: 'my_n€w_svp3r_p@s$w0rd'
-          })
+          expect(host.auth('superman', { value: 'my_n€w_svp3r_p@s$w0rd', cipher: 'plain' } ))
+            .to.deep.equal
+              username: 'superman'
+              password: 'my_n€w_svp3r_p@s$w0rd'
 
       describe 'update both username and password', ->
 
         it 'should update the auth for the given host using strings', ->
-          expect(host.auth('superman', 'my_n€w_svp3r_p@s$w0rd')).to.deep.equal({
+          expect(host.auth('superman', 'my_n€w_svp3r_p@s$w0rd')).to.deep.equal
             username: 'superman'
             password: 'my_n€w_svp3r_p@s$w0rd'
-          })
 
         it 'should update the auth for the given host using password object', ->
-          expect(host.auth('superman', { value: 'my_n€w_svp3r_p@s$w0rd', cipher: 'plain' } )).to.deep.equal({
-            username: 'superman'
-            password: 'my_n€w_svp3r_p@s$w0rd'
-          })
+          expect(host.auth('superman', { value: 'my_n€w_svp3r_p@s$w0rd', cipher: 'plain' } ))
+            .to.deep.equal
+              username: 'superman'
+              password: 'my_n€w_svp3r_p@s$w0rd'
+

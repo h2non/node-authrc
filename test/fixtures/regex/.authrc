@@ -1,0 +1,14 @@
+{
+    "/(.*).site.org/": {
+        "username": "monica",
+        "password": "$up€r_$3crEt_%?"
+    },
+    "/^(http[s]?:\/\/)site.(net|com)/": {
+        "username": "chris",
+        "password": "$up€r_$3crEt_%?"
+    },
+    "/10.68.1.\\d{1,3}:808[0-9]/": {
+        "username": "charles",
+        "password": "$up€r_$3crEt_%?"
+    } 
+}

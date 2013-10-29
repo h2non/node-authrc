@@ -1,5 +1,5 @@
 { diffChars } = require './lib/diff'
-{ isUri, formatUri, parseUri, isObject, trim, validRegex } = require './common'
+{ isUri, formatUri, parseUri, isObject, trim, validRegex, isRegex } = require './common'
 
 module.exports = (obj, string) ->
   return string if not isUri(string) or not isObject(obj)
@@ -11,14 +11,18 @@ module.exports = (obj, string) ->
   getMatchedHost = ->
     matches?[0]?.value or null
 
+  testRegex = (pattern, string) ->
+    new RegExp(pattern.replace(/^\/|\/$/g, ''), 'i').test(string)
+
   # Match string by letter according to the spec algorithm:
   # An O(ND) Difference Algorithm by Eugene W. Myers
   Object.keys(obj)
     .map (host) ->
       trim(host)
     .filter (host) ->
+      matched = false
       if validRegex host 
-        matched = new RegExp(host, 'i').test(host)  
+        matched = testRegex(host, string)
       else
         matched = parseUri(host).hostname is hostParsed.hostname
       matched

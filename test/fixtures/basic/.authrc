@@ -30,9 +30,5 @@
     "notld": {
         "username": "dennis",
         "password": "$up€r_$3crEt_%?"
-    },
-    "/(.*).site.org/": {
-        "username": "monica",
-        "password": "$up€r_$3crEt_%?"
-    } 
+    }
 }
