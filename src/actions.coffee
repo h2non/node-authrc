@@ -22,7 +22,7 @@ module.exports = class Actions
 
   remove: (host) =>
     host ?= @host
-    host = host.host if isObject(host) and (/function Host/g).test(host.constructor.toString())
+    host = host.host if isObject(host) and (/function Host\(/).test(host.constructor.toString())
     @data[host] = null if @data.hasOwnProperty(host)
     @
 
