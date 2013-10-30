@@ -27,7 +27,7 @@ program
       filepath = path.normalize path.join(filepath, authRcFile)
 
     unless fileExists filepath
-      fileNotFound filepath
+      fileNotFound filepath 
       exit 1
 
     try

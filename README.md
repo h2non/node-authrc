@@ -497,7 +497,7 @@ For more information, see the `authrc` [specification](https://github.com/adesis
 
 ## Release History
 
-See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
+See [CHANGELOG](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
 
 ## TODO
 
