@@ -25,7 +25,7 @@ describe 'Command-line testing', ->
 
   describe 'create command', ->  
 
-    it 'should create a new .authrc file via prompt', (done) ->
+    it 'should create a new .authrc file', (done) ->
 
       suppose("#{cwd}/bin/authrc", ['create'])
         #.debug(fs.createWriteStream('../../cli.log'))
@@ -75,6 +75,101 @@ describe 'Command-line testing', ->
 
       it 'should can be transparently decrypted', ->
         expect(auth.find('my.server.org').canDecrypt()).to.be.true
+
+  describe 'add command', ->  
+
+    it 'should add a new host in an existent .authrc file', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['add'])
+        .on(/host name/).respond('my.site.org\n')
+        .on(/user name/).respond('michael\n')
+        .on(/Enter the password:/).respond('p@ssw0rd\n')
+        .on(/Confirm the password/).respond('p@ssw0rd\n')
+        .on(/encrypt your password/).respond('n\n')
+        .on(/Do you want to save/).respond('y\n')
+      .error (err) ->
+        throw new Error err
+      .end (code) ->
+        expect(code).to.be.equal(0)
+        expect(fileExists()).to.be.true
+        done()
+
+    describe 'file contents are the expected', ->
+
+      before ->
+        auth = new Authrc
+
+      it 'should exists data', ->
+        expect(auth.exists()).to.be.true
+
+      it 'should exists the created host', ->
+        expect(auth.find('my.site.org').exists()).to.be.true
+
+      it 'should be a valid host', ->
+        expect(auth.find('my.site.org').valid()).to.be.true
+      
+      it 'should not have an encrypted password', ->
+        expect(auth.find('my.site.org').encrypted()).to.be.false
+
+  describe 'update command', ->  
+
+    it 'should add a update a host in an existent .authrc file', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['update', 'my.site.org'])
+        .on(/user name/).respond('john\n')
+        .on(/Enter the password:/).respond('n€w_p@ssw0rd\n')
+        .on(/Confirm the password/).respond('n€w_p@ssw0rd\n')
+        .on(/encrypt your password/).respond('n\n')
+        .on(/Do you want to save/).respond('y\n')
+      .error (err) ->
+        throw new Error err
+      .end (code) ->
+        expect(code).to.be.equal(0)
+        expect(fileExists()).to.be.true
+        done()
+
+    describe 'file contents are the expected', ->
+
+      before ->
+        auth = new Authrc
+
+      it 'should exists data', ->
+        expect(auth.exists()).to.be.true
+
+      it 'should exists the created host', ->
+        expect(auth.find('my.site.org').exists()).to.be.true
+
+      it 'should be a valid host', ->
+        expect(auth.find('my.site.org').valid()).to.be.true
+      
+      it 'should have the new username', ->
+        expect(auth.find('my.site.org').user()).to.be.equal('john')
+
+      it 'should have the new password', ->
+        expect(auth.find('my.site.org').password()).to.be.equal('n€w_p@ssw0rd')
+
+  describe 'remove command', ->  
+
+    it 'should remove a host in an existent .authrc file', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['remove', 'my.site.org'])
+        .error (err) ->
+          throw new Error err
+        .end (code) ->
+          expect(code).to.be.equal(0)
+          expect(fileExists()).to.be.true
+          done()
+
+    describe 'file contents are the expected', ->
+
+      before ->
+        auth = new Authrc
+
+      it 'should exists data', ->
+        expect(auth.exists()).to.be.true
+
+      it 'should be removed the host', ->
+        expect(auth.find('my.site.org').exists()).to.be.false
   
   # todo
 

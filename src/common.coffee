@@ -101,12 +101,11 @@ module.exports = class Common
     return obj if @isString(obj)
     return new Date(obj.getTime()) if Object::toString.call(obj) is '[object Date]'
 
-    clone = (if @isArray(obj) then obj.slice() else ((obj) ->
+    clone = if @isArray(obj) then obj.slice() else do (obj) ->
       o = {}
       for k of obj
         o[k] = obj[k]
       o
-    (obj)))
 
     for key of clone when clone.hasOwnProperty(key)
       clone[key] = arguments.callee.call(@, clone[key])
@@ -119,3 +118,4 @@ module.exports = class Common
   @exit: (code, msg) =>
     @echo msg if msg
     process.exit(code or 0)
+

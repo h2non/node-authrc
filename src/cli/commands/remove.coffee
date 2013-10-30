@@ -1,10 +1,10 @@
 path = require 'path'
 program = require 'commander'
 Authrc = require '../../authrc'
+processes = require '../processes'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
 { fileNotFound } = require '../messages'
-processes = require '../processes'
 
 program
   .command('remove <host>')

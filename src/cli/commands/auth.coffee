@@ -1,10 +1,10 @@
 path = require 'path'
 program = require 'commander'
 Authrc = require '../../authrc'
+processes = require '../processes'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
 { fileNotFound } = require '../messages'
-processes = require '../processes'
 
 program
   .command('auth <host>')
@@ -50,8 +50,8 @@ program
       echo host.username() if user
       echo host.password() if password
     else
-      { user, password } = host.auth()
-      echo user
+      { username, password } = host.auth()
+      echo username
       echo password
 
     echo host.cipher() if options.cipher and host.encrypted()

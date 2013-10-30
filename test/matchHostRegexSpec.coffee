@@ -23,8 +23,7 @@ describe 'Match/find hosts', ->
 
     it 'should find the host with charles user', ->
       host = auth.host('http://10.68.1.9:8088')
-      
+
       expect(host.exists()).to.be.true
       expect(host.username()).to.be.equal('charles')
-
 

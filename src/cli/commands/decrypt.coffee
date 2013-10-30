@@ -1,7 +1,7 @@
 program = require 'commander'
 crypto = require '../../crypto'
-{ echo, exit } = require '../../common'
 processes = require '../processes'
+{ echo, exit } = require '../../common'
 
 program
   .command('decrypt <password>')

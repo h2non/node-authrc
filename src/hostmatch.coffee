@@ -14,58 +14,54 @@ module.exports = (obj, string) ->
   testRegex = (pattern, string) ->
     new RegExp(pattern.replace(/^\/|\/$/g, ''), 'i').test(string)
 
+  matchByPortAndProtocol = (host) ->
+    match = false
+    host = parseUri(host.value)
+
+    # todo: match based on priority
+    ['protocol', 'port']
+      .forEach (filter) ->
+        match = hostParsed[filter] is host[filter]
+    match
+
+  comparePathStrings = (matches) ->
+    differences = null
+    matchDiffs = diffAlgorithm hostParsed.pathname
+
+    matches.forEach (host) ->
+      { pathname } = parseUri host.value
+      if pathname isnt '/'
+        matchDiffs(pathname, host.value)
+
+    # todo: improve!
+    matches = matchDiffs().map (value) ->
+     { value: value.index }
+
+    matches
+
   # Match string by letter according to the spec algorithm:
   # An O(ND) Difference Algorithm by Eugene W. Myers
   Object.keys(obj)
     .map (host) ->
       trim(host)
     .filter (host) ->
-      matched = false
-      if validRegex host 
-        matched = testRegex(host, string)
+      if isRegex host
+        if validRegex host
+          testRegex(host, string)
       else
-        matched = parseUri(host).hostname is hostParsed.hostname
-      matched
+        parseUri(host).hostname is hostParsed.hostname
     .forEach matchDiffs
 
   # get matched values
   matches = matchDiffs() 
   
-  # deep host matching for commons matchs
+  # deep host matching
   if matches.length > 1
-    submatches = matches
-      .filter (host) ->
-        match = false
-        host = parseUri(host.value)
+    matches = matches.filter matchByPortAndProtocol
+    if matches.length > 1 and hostParsed.pathname and hostParsed.pathname isnt '/'
+      # match string differences using the pathname
+      matches = comparePathStrings(submatches)
 
-        # todo value match based on priority
-        ['protocol', 'port']
-          .forEach (filter) ->
-            match = hostParsed[filter] is host[filter]
-        match
-
-    if submatches.length is 1
-      # return the first element
-      matches = submatches
-    else if submatches.length > 1
-      # match string differences by pathname
-      if not hostParsed.pathname or hostParsed.pathname is '/'
-        matches = submatches
-      else
-        do ->
-          differences = null
-          matchDiffs = diffAlgorithm(hostParsed.pathname)
-          submatches.forEach (host) ->
-            { pathname } = parseUri(host.value)
-            if pathname isnt '/'
-              matchDiffs(pathname, host.value)
-
-          # todo: improve!
-          pathmatches = matchDiffs()
-          if pathmatches.length
-            matches = pathmatches.map (value) ->
-             { value: value.index } 
-  
   getMatchedHost()
 
 

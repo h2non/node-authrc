@@ -84,8 +84,11 @@ describe 'API interface implementation', ->
       it 'should satisfy the valid() method', ->
         expect(host).to.respondTo('valid')
 
-      it 'should satisfy the useranem() method', ->
+      it 'should satisfy the username() method', ->
         expect(host).to.respondTo('username')
+
+      it 'should satisfy the user() method', ->
+        expect(host).to.respondTo('user')
 
       it 'should satisfy the password() method', ->
         expect(host).to.respondTo('password')

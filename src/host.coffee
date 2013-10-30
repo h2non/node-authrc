@@ -1,8 +1,8 @@
 Actions = require './actions'
 crypto = require './crypto'
-hostResolve = require './hostresolve'
+hostMatch = require './hostmatch'
 { algorithm } = require './constants'
-{ parseUri, formatUri, isObject, cloneDeep, getEnvVar, isString, trim, lowerCase } = require './common'
+{ parseUri, formatUri, isObject, cloneDeep, getEnvVar, isRegex, validRegex, isString, trim, lowerCase } = require './common'
 
 module.exports = class Host extends Actions
 
@@ -15,7 +15,7 @@ module.exports = class Host extends Actions
     @file = file
     @data = data
     @search = search
-    @host = hostResolve(@data, search)
+    @host = hostMatch @data, search
 
   get: =>
     if @data then cloneDeep(@data[@host]) else null
@@ -31,7 +31,13 @@ module.exports = class Host extends Actions
     @data? and @host isnt null and @get()?.password?
 
   isValid: =>
-    @exists() and @username()? and @password()?
+    if @exists() and @username()? and @password()?
+      if isRegex @host and not validRegex @host
+        no 
+      else 
+        yes
+    else
+      no
   
   valid: Host::isValid
 

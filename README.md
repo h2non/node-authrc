@@ -11,7 +11,7 @@
 
 `.authrc` aims to be a standard community well supported which provides a generic and centralized configuration file for authentication credentials management and storage that can be used by applications or services for network-based resources
 
-For more defails, see the current `authrc` [specification](http://github.com/adesisnetlife/authrc)
+For more details, see the current `authrc` [specification](http://github.com/adesisnetlife/authrc)
 
 `authrc` spec version supported: `0.1-beta`
 
@@ -31,9 +31,10 @@ $ npm install -g authrc
 
 ## Features
 
-- Simple and pragmatic JavaScript API
-- Full featured command-line interface support
-- File change watcher with auto reload config
+- Simple and elegant JavaScript API
+- Transparent password decryption
+- Full featured command-line interface
+- File change watcher with automatically config reload
 - Heavily tested with full coverage
 
 ## Command-line interface
@@ -105,7 +106,7 @@ if (auth.exists()) {
 }
 ```
 
-For more real use examples, see [test/](https://github.com/h2non/node-authrc/tree/master/test)
+For more real use examples, see [test](https://github.com/h2non/node-authrc/tree/master/test) cases
 
 ### Constructor
 
@@ -113,14 +114,14 @@ For more real use examples, see [test/](https://github.com/h2non/node-authrc/tre
 
 **Throws an exception** if `.authrc` is a bad formed JSON
 
-`filepath` argument is optional
+`filepath` argument to the `.authrc` file or directory is optional
 
 ```js
 var Authrc = require('authrc');
 var auth = new Authrc('file/to/.authrc');
 ```
 
-Get the authrc supported version spec
+Get the current `authrc` supported spec version implementation
 
 ```js
 Authrc.version // '0.1'
@@ -139,17 +140,17 @@ Try to find .authrc file in $HOME directory
 
 #### exists()
 
-Return `true` if the `.authrc` file was found and it's not empty
+Return `true` if the `.authrc` file was found and it is not empty
 
 #### host(string)
 
 Find a host searching by the given `string` in the current `.authrc` file
 
+Return [Host Object](#host-object)
+
 ```javascript
 auth.host('http://my.server.org').exists();
 ```
-
-Return [Host Object](#host-object)
 
 #### find(string)
 
@@ -170,7 +171,7 @@ auth.add('my.server.org', {
 
 #### create(data, callback)
 
-Create a complete new config. This method creates the config and save it into disk.
+Create a new `.authrc` in disk on the current path, optionally passing the data `object`.
 Useful for creating new files.
 
 Return [Auth Object](#new-authrcfilepath)
@@ -295,12 +296,16 @@ This is useful when different applications makes concurrent changes over the fil
 
 Return `true` if the current `.authrc` file is located globally (in `$HOME/%USERPROFILE%` directories)
 
+#### file
+
+This property `file` specifies the current used `.authrc` file path
+
 
 ### Host Object
 
 #### auth([username], [password])
 
-Returns the authentication config `object`
+Return the authentication config `object`
 
 If arguments passed, updates the authentication data object
 
@@ -375,7 +380,7 @@ auth.host('my.server.org').password('my_n€w_p@s$w0rd');
 
 #### get()
 
-Return the fill authentication `object` 
+Return the full authentication plain `object` 
 
 ```javascript
 auth.host('my.server.org').get(); 
@@ -457,8 +462,8 @@ Return a [Host Object](#host-object)
 
 The `key` argument is required if the current password has no `envKey` variable defined
 
-**Throws an exception** if the arguments are not valid or the decryption key is incorrect 
-or a error success during the decryption process.
+**Throws an exception** if the arguments are not valid, the decryption key is incorrect 
+or an error success during the decryption process.
 
 ```javascript
 var host = auth.host('encrypted.server.org');
@@ -496,11 +501,10 @@ See [CHANGELOG.md](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md
 
 ## TODO
 
-- Improve the matching algorithm based regex cases
+- Improve the matching algorithm based for regex
 - More complete CLI support
 - Add more destructive test cases
 - Add E2E test suite
-- Host factory Object
 
 ## License
 

@@ -1,10 +1,10 @@
 path = require 'path'
 program = require 'commander'
 Authrc = require '../../authrc'
+processes = require '../processes'
 { authRcFile } = require '../../constants'
 { echo, exit, fileExists, dirExists } = require '../../common'
 { fileNotFound } = require '../messages'
-processes = require '../processes'
 
 program
   .command('update <host>')
@@ -45,7 +45,7 @@ program
     if options.username?
       host.username options.username
       host.save ->
-        exit 0, "Username valued updated successfully for #{host.host}".green
+        exit 0, "Username value updated successfully for #{host.host}".green
     else
       processes.createCredentials (data) ->
         host.set data
