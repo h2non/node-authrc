@@ -13,7 +13,7 @@
 
 For more details, see the current `authrc` [specification](http://github.com/adesisnetlife/authrc)
 
-`authrc` spec version supported: `0.1-beta`
+`authrc` spec version supported: `0.1`
 
 ## Getting Started
 
