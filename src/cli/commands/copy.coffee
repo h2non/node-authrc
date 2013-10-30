@@ -8,25 +8,26 @@ processes = require '../processes'
 
 program
   .command('add')
-  .description('\n  Add new host to an existant .authrc file'.cyan)
+  .description('\n  Copy and existent host credentials to another host'.cyan)
   .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
 
-            $ authrc add 
-            $ authrc add --path /home/user/
+            $ authrc copy 
+            $ authrc copy --path /home/user/
         
     '''
   )
   .action (options) ->
-    filepath = options.path or process.cwd()
+    filepath = do -> 
+      options.path or process.cwd()
 
-    if dirExists filepath
-      filepath = path.normalize path.join(filepath, authRcFile)
+      if dirExists filepath
+        filepath = path.normalize path.join(filepath, authRcFile)
 
-    unless fileExists filepath
-      exit 1, fileNotFound filepath
+      unless fileExists filepath
+        exit 1, fileNotFound filepath
 
     try
       auth = new Authrc filepath
@@ -39,7 +40,7 @@ program
 
     """
 
-    processes.createHost (data) ->
+    processes.copyHost (data) ->
       auth.add data
       auth.save ->
         exit 0, 'host added successfully!'.green

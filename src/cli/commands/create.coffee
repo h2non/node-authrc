@@ -29,8 +29,7 @@ program
     
     unless options.force
       if fileExists filepath
-        fileAlreadyExists filepath
-        exit 0
+        exit 1, fileAlreadyExists filepath
 
     try
       auth = new Authrc filepath

@@ -29,8 +29,7 @@ program
       filepath = path.normalize path.join(filepath, authRcFile)
 
     unless fileExists filepath
-      fileNotFound filepath
-      exit 1
+      exit 1, fileNotFound filepath
 
     try
       auth = new Authrc filepath
