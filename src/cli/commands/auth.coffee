@@ -10,10 +10,10 @@ program
   .command('auth <host>')
   .description('\n  Get the authencation credentials from the given host'.cyan)
   .usage('<host>'.cyan)
-  .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
+  .option('-f, --path <path>', 'Path to the .authrc file directory'.cyan)
   .option('-u, --user', 'Get the host username value'.cyan)
   .option('-p, --password', 'Get the host password value'.cyan)
-  .option('-c, --cipher', 'Get the host password cipher'.cyan)
+  .option('-c, --cipher', 'Get the password cipher (if it is encrypted)'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:

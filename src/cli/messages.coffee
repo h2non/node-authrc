@@ -7,8 +7,10 @@ module.exports = class
 
   @fileNotFound: (filepath) =>
     echo ".authrc file not found".red
-    echo "Be sure the file exists: #{filepath}"
+    echo "Be sure the file exists in: #{filepath}"
+    echo 'You can pass the --path argument with your file path'
     echo 'You can use the "create" command to create a new one'
+    echo ''
     @helpCommands()
 
   @fileAlreadyExists: (filepath) =>

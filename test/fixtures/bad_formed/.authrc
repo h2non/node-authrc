@@ -1,6 +1,10 @@
 {
-    "my.host.org": {
-        "username": "philip"
-        "password" "super_p@$sw0rd"
+    "/^[my.host.org)/": {
+        "username": "philip",
+        "password": "super_p@$sw0rd"
+    },
+    "/^http[s]?://server.host.(org|com|net)/": {
+        "username": "philip",
+        "password": "super_p@$sw0rd"
     }
 }
