@@ -72,7 +72,8 @@ $ authrc --help
   Usage examples:
 
     $ authrc create --path /home/user/
-    $ authrc add 
+    $ authrc add
+    $ authrc list
     $ authrc remove my.host.org
     $ authrc update my.host.org
     $ authrc auth my.host.org

@@ -8,6 +8,7 @@ Host = require './host'
 module.exports = class Authrc extends Actions
 
   @version: version
+  
   file: null
   data: {}
 
@@ -39,15 +40,12 @@ module.exports = class Authrc extends Actions
   hostExists: (string) =>
     @host(string).exists()
 
-  # return array of duplicated hosts with same credentials
-  duplicated: =>
-    @host
-
   unwatch: ->
     fileChange.unwatch()
 
   isGlobalFile: ->
     @file is getGlobalFilePath()
+
 
 getCurrentDirFilePath = (filepath) ->
   path.join(process.cwd(), authRcFile)
