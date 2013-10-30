@@ -170,6 +170,3 @@ describe 'Command-line testing', ->
 
       it 'should be removed the host', ->
         expect(auth.find('my.site.org').exists()).to.be.false
-  
-  # todo
-
