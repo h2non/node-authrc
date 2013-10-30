@@ -1,10 +1,6 @@
-path = require 'path'
 program = require 'commander'
-Authrc = require '../../authrc'
 processes = require '../processes'
-{ authRcFile } = require '../../constants'
-{ echo, exit, fileExists, dirExists } = require '../../common'
-{ fileNotFound } = require '../messages'
+{ createAuth, getFilePath, fileExists, echo, exit  } = require '../common'
 
 program
   .command('update <host>')
@@ -23,20 +19,9 @@ program
     '''
   )
   .action (hostname, options) ->
-    filepath = options.path or process.cwd()
-
-    if dirExists filepath
-      filepath = path.normalize path.join(filepath, authRcFile)
-
-    unless fileExists filepath
-      exit 1, fileNotFound filepath
-
-    try
-      auth = new Authrc filepath
-      auth.file = filepath
-    catch err
-      exit 1, "Error reading .authrc file: #{err}".red
-
+    
+    filepath = fileExists getFilePath options.path
+    auth = createAuth filepath
     host = auth.host hostname
     
     exit 0, "Host not found in #{filepath}" unless host.exists()

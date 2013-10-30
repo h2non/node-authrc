@@ -33,8 +33,9 @@ $ npm install -g authrc
 
 - Simple and elegant JavaScript API
 - Transparent password decryption
+- Compare existent hosts to prevent redundancy
 - Full featured command-line interface
-- File change watcher with automatically config reload
+- File change watcher with automatically data reload
 - Heavily tested with full coverage
 
 ## Command-line interface

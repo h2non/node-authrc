@@ -2,7 +2,7 @@ program = require 'commander'
 pkg = require '../package.json'
 { echo } = require './common'
 
-[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt' ]
+[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt', 'list' ]
   .map( (file) -> "./cli/commands/#{file}" )
   .forEach require
 
@@ -21,7 +21,8 @@ program.on '--help', ->
       Usage examples:
     
         $ authrc create --path /home/user/
-        $ authrc add 
+        $ authrc add
+        $ authrc list
         $ authrc remove my.host.org
         $ authrc update my.host.org
         $ authrc auth my.host.org

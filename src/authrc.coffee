@@ -39,6 +39,10 @@ module.exports = class Authrc extends Actions
   hostExists: (string) =>
     @host(string).exists()
 
+  # return array of duplicated hosts with same credentials
+  duplicated: =>
+    @host
+
   unwatch: ->
     fileChange.unwatch()
 

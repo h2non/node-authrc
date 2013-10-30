@@ -1,4 +1,4 @@
-{ echo } = require '../common'
+{ echo } = require './common'
 
 module.exports = class
   
@@ -9,7 +9,7 @@ module.exports = class
     echo ".authrc file not found".red
     echo "Be sure the file exists in: #{filepath}"
     echo 'You can pass the --path argument with your file path'
-    echo 'You can use the "create" command to create a new one'
+    echo 'Use the "create" command to create a new .authrc file'
     echo ''
     @helpCommands()
 

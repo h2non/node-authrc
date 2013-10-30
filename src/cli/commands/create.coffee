@@ -1,10 +1,7 @@
 path = require 'path'
 program = require 'commander'
-Authrc = require '../../authrc'
 processes = require '../processes'
-{ authRcFile } = require '../../constants'
-{ echo, exit, fileExists, dirExists } = require '../../common'
-{ fileAlreadyExists } = require '../messages'
+{ createAuth, getFilePath, fileExists, echo, exit } = require '../common'
 
 program
   .command('create')
@@ -21,21 +18,12 @@ program
     '''
   )
   .action (options) ->
-    filepath = options.path or process.cwd()
     options.force ?= false
-
-    if dirExists filepath
-      filepath = path.normalize path.join(filepath, authRcFile)
+    filepath = getFilePath options.path
     
-    unless options.force
-      if fileExists filepath
-        exit 1, fileAlreadyExists filepath
+    fileExists filepath if options.force
 
-    try
-      auth = new Authrc filepath
-      auth.file = filepath
-    catch err
-      exit 1, "Error reading .authrc file: #{err}".red
+    auth = createAuth filepath
 
     echo """
     The file will be created in #{filepath}

@@ -1,4 +1,3 @@
-
 fs = require 'fs'
 path = require 'path'
 { inputEnc } = require './constants'
@@ -48,10 +47,12 @@ module.exports = class Common
           obj[key] = data[key]
       obj
 
-    fs.writeFile filepath, JSON.stringify(data, null, 4), (err) ->
+    fs.writeFile filepath, JSON.stringify(data, null, 4), { mode: parseInt('700', 8) }, (err) ->
       if typeof callback is 'function'
-        return callback(err) if err
-        callback(null, data)
+        if err
+          callback err 
+        else
+          callback null, data
 
   @fileExists: (path) ->
     return false if not fs.existsSync(path)
@@ -111,11 +112,4 @@ module.exports = class Common
       clone[key] = arguments.callee.call(@, clone[key])
 
     clone
-
-  @echo: ->
-    console.log.apply null, Array::slice.call arguments
-
-  @exit: (code, msg) =>
-    @echo msg if msg
-    process.exit(code or 0)
 

@@ -1,7 +1,7 @@
 prompt = require './prompt'
 async = require 'async'
 { ciphers, encrypt, defaultCipher } = require '../crypto'
-{ echo, exit, isRegex, validRegex } = require '../common'
+{ echo, exit, isRegex, validRegex } = require './common'
 
 module.exports = 
 

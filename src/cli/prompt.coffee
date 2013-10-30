@@ -1,6 +1,6 @@
 promptly = require 'promptly'
 validator = require './validator'
-{ exit, isArray, isString } = require '../common'
+{ exit, isArray, isString } = require './common'
 
 module.exports =
 

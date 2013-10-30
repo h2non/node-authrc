@@ -1,4 +1,4 @@
-{ isString, isRegex, validRegex } = require '../common'
+{ isString, isRegex, validRegex } = require './common'
 
 module.exports = class
 
@@ -18,6 +18,6 @@ module.exports = class
     @notEmpty(value)
     if value.length < 6
       throw new Error 'Password must have at least 6 characters'.red
-    if /^\w+$/.test(value)
+    if /^\w+$/.test value
       throw new Error 'Password must contain at least one symbol character'.red
     value

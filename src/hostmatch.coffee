@@ -1,18 +1,15 @@
 { diffChars } = require './lib/diff'
-{ isUri, formatUri, parseUri, isObject, trim, validRegex, isRegex } = require './common'
+{ isUri, isString, formatUri, parseUri, isObject, trim, validRegex, isRegex } = require './common'
 
 module.exports = (obj, string) ->
-  return string if not isUri(string) or not isObject(obj)
+  return string if not isString or not isObject obj
 
   matches = null
-  matchDiffs = diffAlgorithm(string)
-  hostParsed = parseUri(string)
+  matchDiffs = diffAlgorithm string
+  hostParsed = parseUri string
 
   getMatchedHost = ->
     matches?[0]?.value or null
-
-  testRegex = (pattern, string) ->
-    new RegExp(pattern.replace(/^\/|\/$/g, ''), 'i').test(string)
 
   matchByPortAndProtocol = (host) ->
     match = false
@@ -24,6 +21,13 @@ module.exports = (obj, string) ->
         match = hostParsed[filter] is host[filter]
     match
 
+  filterHosts = (host) ->
+    if isRegex host
+      if validRegex host
+        testRegex host, string
+    else
+      parseUri(host).hostname is hostParsed.hostname
+
   comparePathStrings = (matches) ->
     differences = null
     matchDiffs = diffAlgorithm hostParsed.pathname
@@ -31,7 +35,7 @@ module.exports = (obj, string) ->
     matches.forEach (host) ->
       { pathname } = parseUri host.value
       if pathname isnt '/'
-        matchDiffs(pathname, host.value)
+        matchDiffs pathname, host.value
 
     # todo: improve!
     matches = matchDiffs().map (value) ->
@@ -39,31 +43,31 @@ module.exports = (obj, string) ->
 
     matches
 
-  # Match string by letter according to the spec algorithm:
-  # An O(ND) Difference Algorithm by Eugene W. Myers
+  # get the hosts
   Object.keys(obj)
-    .map (host) ->
-      trim(host)
-    .filter (host) ->
-      if isRegex host
-        if validRegex host
-          testRegex(host, string)
-      else
-        parseUri(host).hostname is hostParsed.hostname
-    .forEach matchDiffs
+    .map(trim)
+    # filter by hostname or match by regex
+    .filter(filterHosts)
+    # Match string by letter according to the spec algorithm:
+    # An O(ND) Difference Algorithm by Eugene W. Myers
+    .forEach(matchDiffs)
 
-  # get matched values
-  matches = matchDiffs() 
+  # get filtered matched values
+  matches = matchDiffs()
   
-  # deep host matching
+  # performs deep host matching
   if matches.length > 1
+    # filter by protocol and port number
     matches = matches.filter matchByPortAndProtocol
     if matches.length > 1 and hostParsed.pathname and hostParsed.pathname isnt '/'
       # match string differences using the pathname
-      matches = comparePathStrings(submatches)
+      matches = comparePathStrings submatches
 
   getMatchedHost()
 
+
+testRegex = (pattern, string) ->
+  new RegExp(pattern.replace(/^\/|\/$/g, ''), 'i').test string
 
 diffAlgorithm = (match) ->
   differences = null
