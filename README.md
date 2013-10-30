@@ -503,7 +503,7 @@ See [CHANGELOG](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
 
 ## TODO
 
-- Improve the matching algorithm based for regex
+- Improve the host matching algorithm for regex-like matching
 - CLI support for copy and check duplicated hosts
 - Add more destructive and smoke tests
 - Add more regex tests
