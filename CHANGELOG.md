@@ -1,6 +1,21 @@
 ## Changelog
 
-- 0.1.0-beta `27.10.2013`
+- 0.1.2 `30.10.2013`
+
+- Added API method aliases
+- Refactor of host matching algorithm
+- Added list CLI command
+- Added more test cases
+
+- 0.1.1 `29.10.2013`
+
+- Added regular expressions support
+- Improved CLI support features
+- Added more test cases
+- Added CLI E2E test
+- Minor refactors
+
+- 0.1.0 `27.10.2013`
 
   * API fully redesigned
   * Important refactoring
