@@ -53,7 +53,7 @@ module.exports = (grunt) ->
     mochacli:
       options:
         compilers: ['coffee:coffee-script']
-        timeout: 3000
+        timeout: 5000
         ignoreLeaks: false
         ui: 'bdd'
         reporter: 'spec'
