@@ -108,7 +108,7 @@ if (auth.exists()) {
 }
 ```
 
-For more real use examples, see [test](https://github.com/h2non/node-authrc/tree/master/test) cases
+For more usage examples, see the [tests](https://github.com/h2non/node-authrc/tree/master/test)
 
 ### Constructor
 
@@ -504,8 +504,9 @@ See [CHANGELOG](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
 ## TODO
 
 - Improve the matching algorithm based for regex
-- More complete CLI support
-- Add more destructive test cases
+- CLI support for copy and check duplicated hosts
+- Add more destructive and smoke tests
+- Add more regex tests
 - Add E2E test suite
 
 ## License
