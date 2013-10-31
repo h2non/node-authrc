@@ -1,6 +1,6 @@
-program = require 'commander'
 processes = require '../processes'
-{ createAuth, getFilePath, fileExists, echo, exit  } = require '../common'
+{ createAuth, getFilePath, fileExists } = require '../commandHelper'
+{ program, echo, exit } = require '../common'
 
 program
   .command('auth <host>')
@@ -20,13 +20,13 @@ program
         
     '''
   )
-  .action (hostname, options) ->
+  .action (search, options) ->
     
     filepath = fileExists getFilePath options.path
     auth = createAuth filepath
-    host = auth.find hostname
+    host = auth.find search
     
-    exit 2, "Host '#{hostname}' not found in #{filepath}" unless host.exists()
+    exit 2, "Host '#{search}' not found in #{filepath}" unless host.exists()
     exit 1, "Host invalid '#{host.host}'. Check the file: #{filepath}" unless host.valid()
 
     { user, password } = options

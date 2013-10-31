@@ -1,7 +1,7 @@
 path = require 'path'
-program = require 'commander'
 processes = require '../processes'
-{ createAuth, getFilePath, fileExists, echo, exit } = require '../common'
+{ createAuth, getFilePath, fileExists } = require '../commandHelper'
+{ program, echo, exit } = require '../common'
 
 program
   .command('create')

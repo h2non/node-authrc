@@ -182,3 +182,27 @@ describe 'Command-line testing', ->
 
       it 'should be removed the host', ->
         expect(auth.find('my.site.org').exists()).to.be.false
+
+  describe 'encrypt command', ->  
+
+    it 'should encrypt a password property', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['encrypt', 'p@s$w0rd'])
+        .on(/Enter the password key/).respond('my-d€crypt_k3y\n')
+        .error (err) ->
+          throw new Error err
+        .end (code) ->
+          expect(code).to.be.equal(0)
+          done()
+
+  describe 'encrypt command', ->  
+
+    it 'should encrypt a password property', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['decrypt', '8a87a8de71a9fab17af597dcd691d13d'])
+        .on(/Enter the password key/).respond('my-d€crypt_k3y\n')
+        .error (err) ->
+          throw new Error err
+        .end (code) ->
+          expect(code).to.be.equal(0)
+          done()

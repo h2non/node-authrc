@@ -87,13 +87,3 @@ module.exports =
       promptHostname
       createCredentials
     ]
-
-  copyHost: (hostFn, endFn) ->
-    prompt.hostname (input) ->
-      hostFn input
-      prompt.confirm 'Do you want to save?', (ok) ->
-        exit 0, 'Canceled' unless ok
-        successFn()
-
-  
-

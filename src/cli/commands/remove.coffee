@@ -1,6 +1,6 @@
-program = require 'commander'
 processes = require '../processes'
-{ createAuth, getFilePath, fileExists, echo, exit  } = require '../common'
+{ createAuth, getFilePath, fileExists } = require '../commandHelper'
+{ program, echo, exit } = require '../common'
 
 program
   .command('remove <host>')
@@ -23,7 +23,7 @@ program
 
     host = auth.host hostname
     
-    exit 0, "Host not found in #{filepath}" unless host.exists()
+    exit 0, "Host '#{search}' not found in #{filepath}" unless host.exists()
 
     host.remove()
     auth.save ->

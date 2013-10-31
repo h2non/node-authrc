@@ -2,7 +2,7 @@ program = require 'commander'
 pkg = require '../../package.json'
 { echo } = require './common'
 
-[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt', 'list' ]
+[ 'create', 'add', 'remove', 'update', 'auth', 'decrypt', 'encrypt', 'list', 'copy' ]
   .map( (file) -> "./commands/#{file}" )
   .forEach require
 
@@ -26,6 +26,7 @@ program.on '--help', ->
         $ authrc remove my.host.org
         $ authrc update my.host.org
         $ authrc auth my.host.org
+        $ authrc copy my.host.org net.host.net
         $ authrc decrypt e9b90003128c4215ba005a08615fa64f
         $ authrc encrypt p@sw0rd
 

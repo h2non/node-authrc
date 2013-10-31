@@ -150,7 +150,7 @@ Return `true` if the `.authrc` file was found and it is not empty
 
 Find a host searching by the given `string` in the current `.authrc` file
 
-Return [Host Object](#host-object)
+Chainable. Return [Host Object](#host-object)
 
 ```javascript
 auth.host('http://my.server.org').exists();
@@ -164,7 +164,7 @@ Alias to `host()`
 
 Add new host to the current `.authrc` config
 
-Return [Auth Object](#new-authrcfilepath)
+Chainable. Return [Auth Object](#new-authrcfilepath)
 
 ```javascript
 auth.add('my.server.org', {
@@ -178,7 +178,7 @@ auth.add('my.server.org', {
 Create a new `.authrc` in disk on the current path, optionally passing the data `object`.
 Useful for creating new files.
 
-Return [Auth Object](#new-authrcfilepath)
+Chainable. Return [Auth Object](#new-authrcfilepath)
 
 ```javascript
 var auth = new Authrc('new/path');
@@ -212,7 +212,7 @@ Removes a host from the config. You need to call `save()` method to apply change
 You can pass an argument if you are using the method from `Authrc` object.
 Both `string` and `Host object` types are supported
 
-Return [Auth Object](#new-authrcfilepath)
+Chainable. Return [Auth Object](#new-authrcfilepath)
 
 ```javascript
 auth.remove('my.server.org').hostExists('my.server.org'); // false
@@ -235,7 +235,7 @@ This is a asynchronous task, so you need to pass a callback function to handle i
 
 Optionally you can pass the whole `data` object that overrides the currently cached (but be aware about how to use it in order to prevent unexpected behavior or object schema errors)
 
-Return [Auth Object](#new-authrcfilepath)
+Chainable. Return [Auth Object](#new-authrcfilepath)
 
 ```javascript
 auth.save(function (err, data) {
@@ -249,11 +249,11 @@ auth.save(function (err, data) {
 
 #### read()
 
-Update the cached config data from disk file. 
+Update the cached config data from disk file.
 
 By default you dont need to use it because a file watcher is listening on background for file changes. If happends, it will reload automatically the config from disk.
 
-Return [Auth Object](#new-authrcfilepath)
+Chainable. Return [Auth Object](#new-authrcfilepath)
 
 #### update()
 
@@ -462,7 +462,7 @@ if (!host.isEncrypted()) {
 
 #### encrypt([key], [cipher])
 
-Return a [Host Object](#host-object)
+Chainable. Return a [Host Object](#host-object)
 
 The `key` argument is required if the current password has no `envKey` variable defined
 
