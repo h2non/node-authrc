@@ -61,6 +61,8 @@ $ authrc --help
       Utility for easy password decryption
     encrypt [options] <password> 
       Utility for easy password encryption
+    list [options]         
+      List the current existent hosts in .authrc
 
   Options:
 
