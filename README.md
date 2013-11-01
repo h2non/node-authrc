@@ -57,14 +57,14 @@ $ authrc --help
       Update a host from .authrc
     auth [options] <host>  
       Get the authencation credentials from the given host
-    decrypt [options] <password> 
-      Utility for easy password decryption
-    encrypt [options] <password> 
-      Utility for easy password encryption
     list [options]         
       List the current existent hosts in .authrc
     copy [options] <host> <newhost> 
       Copy existent host credentials to another host
+    decrypt [options] <password> 
+      Utility for easy password decryption
+    encrypt [options] <password> 
+      Utility for easy password encryption
 
   Options:
 
