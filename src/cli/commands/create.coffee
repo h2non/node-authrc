@@ -7,6 +7,7 @@ program
   .command('create')
   .description('\n  Create new .authrc file'.cyan)
   .option('-f, --path <path>', 'Path to place the .authrc created file'.cyan)
+  .option('-g, --global', 'Use the .authrc file located in the user $HOME directory'.cyan)
   .option('-y, --force', 'Force the new file creation'.cyan)
   .on('--help', ->
     echo '''
@@ -19,7 +20,7 @@ program
   )
   .action (options) ->
     options.force ?= false
-    filepath = getFilePath options.path
+    filepath = getFilePath options.path, options.global
     
     fileExists filepath if options.force
 

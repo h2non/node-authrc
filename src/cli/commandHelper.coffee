@@ -2,12 +2,15 @@ path = require 'path'
 Authrc = require '../authrc'
 { authRcFile } = require '../constants'
 { fileNotFound } = require './messages'
-{ fileExists, dirExists, exit } = require './common'
+{ fileExists, dirExists, exit, getHomePath } = require './common'
 
 module.exports = class 
 
-  @getFilePath: (filepath) =>
-    filepath ?= process.cwd()
+  @getFilePath: (filepath, global) =>
+    if global
+      filepath = getHomePath()
+    else
+      filepath ?= process.cwd()
 
     if dirExists filepath
       filepath = path.normalize path.join(filepath, authRcFile)
@@ -15,7 +18,9 @@ module.exports = class
     filepath
 
   @fileExists: (filepath) =>
-    unless fileExists filepath
+    unless fileExists(filepath)
+      exit 1, fileNotFound filepath
+    unless path.basename(filepath) is authRcFile
       exit 1, fileNotFound filepath
 
     filepath

@@ -7,6 +7,7 @@ program
   .description('\n  Get the authencation credentials from the given host'.cyan)
   .usage('<host>'.cyan)
   .option('-f, --path <path>', 'Path to the .authrc file directory'.cyan)
+  .option('-g, --global', 'Use the .authrc file located in the user $HOME directory'.cyan)
   .option('-u, --user', 'Get the host username value'.cyan)
   .option('-p, --password', 'Get the host password value'.cyan)
   .option('-c, --cipher', 'Get the password cipher (if it is encrypted)'.cyan)
@@ -22,7 +23,7 @@ program
   )
   .action (search, options) ->
     
-    filepath = fileExists getFilePath options.path
+    filepath = fileExists getFilePath options.path, options.global
     auth = createAuth filepath
     host = auth.find search
     

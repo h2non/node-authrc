@@ -8,19 +8,21 @@ program
   .usage('<host>'.cyan)
   .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
   .option('-u, --username <username>', 'New username value'.cyan)
+  .option('-g, --global', 'Use the .authrc file located in the user $HOME directory'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
 
             $ authrc update my.host.org 
             $ authrc update my.host.org --path /home/user/
+            $ authrc update my.host.org --global
             $ authrc update my.host.org --username john --path /home/user/
 
     '''
   )
   .action (search, options) ->
     
-    filepath = fileExists getFilePath options.path
+    filepath = fileExists getFilePath options.path, options.global
     auth = createAuth filepath
     host = auth.find search
     

@@ -17,7 +17,7 @@ getSha1FromFile = (path) ->
 module.exports = 
 
   unwatch: ->
-    for watcher of fileWatchers when fileWatchers.hasOwnProperty(watcher) and fileWatchers[watcher].close
+    for own watcher of fileWatchers when fileWatchers[watcher].close
       fileWatchers[watcher].close()
     fileWatchers = {}
 

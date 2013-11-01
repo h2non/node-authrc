@@ -1,5 +1,5 @@
 program = require 'commander'
-{ fileExists, dirExists, isArray, isObject, isString, validRegex, isRegex } = require '../common'
+{ fileExists, dirExists, isArray, isObject, isString, validRegex, isRegex, getHomePath } = require '../common'
 
 module.exports = class
 
@@ -18,6 +18,8 @@ module.exports = class
   @fileExists: fileExists
 
   @dirExists: dirExists
+
+  @getHomePath: getHomePath
 
   @echo: ->
     console.log.apply null, Array::slice.call arguments

@@ -18,7 +18,7 @@ program
   )
   .action (search, newhost, options) ->
 
-    filepath = fileExists getFilePath options.path
+    filepath = fileExists getFilePath options.path, options.global
     auth = createAuth filepath
     host = auth.find search
 
