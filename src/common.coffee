@@ -42,9 +42,7 @@ module.exports = class Common
   @writeJSON: (filepath, data, callback) ->
     data = do ->
       obj = {}
-      for key of data
-        if data.hasOwnProperty(key) and data[key]?
-          obj[key] = data[key]
+      obj[key] = data[key] for own key of data when data[key]?
       obj
 
     fs.writeFile filepath, JSON.stringify(data, null, 4), { mode: parseInt('700', 8) }, (err) ->
@@ -86,7 +84,7 @@ module.exports = class Common
 
   @omit: (obj, props...) ->
     newObj = {}
-    for key of obj when obj.hasOwnProperty(key) and props.indexOf(key) is -1
+    for own key of obj when props.indexOf(key) is -1
       newObj[key] = obj[key]
     newObj
 
