@@ -1,5 +1,12 @@
 ## Changelog
 
+- 0.1.3 `01.11.2013`
+
+  * Added copy command to CLI
+  * Fixed read file error from CLI
+  * Minor match algorithm refactor
+  * Added test cases
+
 - 0.1.2 `30.10.2013`
 
   * Added API method aliases
