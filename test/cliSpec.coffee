@@ -160,6 +160,18 @@ describe 'Command-line testing', ->
           expect(fileExists()).to.be.true
           done()
 
+  describe 'copy command', ->  
+
+    it 'should copy a host in an existent .authrc file', (done) ->
+
+      suppose("#{cwd}/bin/authrc", ['copy', 'my.site.org', 'new.site.org'])
+        .error (err) ->
+          throw new Error err
+        .end (code) ->
+          expect(code).to.be.equal(0)
+          expect(fileExists()).to.be.true
+          done()
+
   describe 'remove command', ->  
 
     it 'should remove a host in an existent .authrc file', (done) ->

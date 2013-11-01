@@ -7,8 +7,8 @@ program
   .description('\n  Update a host from .authrc'.cyan)
   .usage('<host>'.cyan)
   .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
-  .option('-u, --username <username>', 'New username value'.cyan)
   .option('-g, --global', 'Use the .authrc file located in the user $HOME directory'.cyan)
+  .option('-u, --username <username>', 'New username value'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:

@@ -6,6 +6,7 @@ program
   .command('add')
   .description('\n  Add new host to an existant .authrc file'.cyan)
   .option('-f, --path <path>', 'Path to the .authrc file'.cyan)
+  .option('-g, --global', 'Use the .authrc file located in the user $HOME directory'.cyan)
   .on('--help', ->
     echo '''
           Usage examples:
@@ -17,7 +18,7 @@ program
   )
   .action (options) ->
 
-    filepath = fileExists getFilePath options.path
+    filepath = fileExists getFilePath options.path, options.global
     auth = createAuth filepath
 
     echo """

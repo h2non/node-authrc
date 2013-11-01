@@ -63,12 +63,14 @@ $ authrc --help
       Utility for easy password encryption
     list [options]         
       List the current existent hosts in .authrc
+    copy [options] <host> <newhost> 
+      Copy existent host credentials to another host
 
   Options:
 
     -h, --help            output usage information
     -V, --version         output the version number
-    -I, --implementation  Current authrc implementation language.
+    -I, --implementation  Current authrc implementation language
                           Useful for multiple installed implementations
 
   Usage examples:
@@ -79,6 +81,7 @@ $ authrc --help
     $ authrc remove my.host.org
     $ authrc update my.host.org
     $ authrc auth my.host.org
+    $ authrc copy my.host.org net.host.net
     $ authrc decrypt e9b90003128c4215ba005a08615fa64f
     $ authrc encrypt p@sw0rd
 
