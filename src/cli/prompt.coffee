@@ -66,7 +66,7 @@ prompt = (message, callback, list, type, options) ->
         when 'object' then temp.options = value
 
     temp.type ?= 'prompt'
-    fnArgs.push value for param, value of temp when param isnt 'type'
+    fnArgs.push value for own param, value of temp when param isnt 'type'
 
     { type: temp.type, fnArgs: fnArgs }
 

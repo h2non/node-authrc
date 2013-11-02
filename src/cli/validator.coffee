@@ -15,7 +15,7 @@ module.exports = class
     value isnt compare
 
   @password: (value) =>
-    @notEmpty(value)
+    @notEmpty value
     if value.length < 6
       throw new Error 'Password must have at least 6 characters'.red
     if /^\w+$/.test value

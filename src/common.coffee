@@ -58,15 +58,15 @@ module.exports = class Common
     stat.isFile() or stat.isSymbolicLink()
 
   @dirExists: (path) ->
-    return false if not fs.existsSync(path)
+    return false if not fs.existsSync path
     fs.lstatSync(path).isDirectory()
 
   @lowerCase: (string) =>
-    string = string.toLowerCase() if @isString(string)
+    string = string.toLowerCase() if @isString string
     string
 
   @trim: (string) =>
-    if @isString(string)
+    if @isString string
       string = string.trim()
     string
 
@@ -97,7 +97,7 @@ module.exports = class Common
   @cloneDeep: (obj) =>
     return obj if obj is undefined or obj is null
     return obj if typeof obj is 'number'
-    return obj if @isString(obj)
+    return obj if @isString obj
     return new Date(obj.getTime()) if Object::toString.call(obj) is '[object Date]'
 
     clone = if @isArray(obj) then obj.slice() else do (obj) ->

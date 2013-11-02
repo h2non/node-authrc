@@ -55,7 +55,7 @@ module.exports =
     promptSaveFile = ->
       prompt.confirm 'Do you want to save?', (ok) ->
         exit 0, 'Canceled' unless ok
-        successFn(authObj)
+        successFn authObj
 
     async.series [
       promptUsername
@@ -80,7 +80,7 @@ module.exports =
     createCredentials = (done) =>
       @createCredentials (authObj) ->
         hostObj[host] = authObj
-        successFn(hostObj)
+        successFn hostObj
         done()
 
     async.series [
