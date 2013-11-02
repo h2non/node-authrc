@@ -12,7 +12,7 @@ fileExists = ->
 removeFile = ->
   fs.unlink '.authrc' if fileExists()
 
-describe 'Command-line testing', ->
+describe 'CLI', ->
   auth = null
 
   before ->
