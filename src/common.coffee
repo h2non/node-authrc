@@ -9,13 +9,13 @@ module.exports = class Common
     path.normalize process.env[(if (process.platform is 'win32') then 'USERPROFILE' else 'HOME')] or ''
 
   @getEnvVar: (name) =>
-    process.env[@trim(name)]
+    process.env[@trim name]
 
   @isRegex: (regexString) ->
     (/^\/.*\/$/).test regexString
 
   @validRegex: (string) =>
-    return no unless @isRegex(string)
+    return no unless @isRegex string
     try 
       new RegExp string
       return yes
@@ -26,18 +26,18 @@ module.exports = class Common
     host = parse(string)
     # add support for aditional protocols
     if not host.protocol or string.indexOf('://') is -1
-      host = arguments.callee('http://' + string)
+      host = arguments.callee 'http://' + string
     host
 
   @isUri: (string) =>
-    { protocol, hostname } = @parseUri(string)
+    { protocol, hostname } = @parseUri string
     protocol? and hostname?
 
   @formatUri: (object) ->
     format(object)
 
   @readJSON: (filepath) => 
-    JSON.parse(fs.readFileSync(filepath, { encoding: inputEnc }))
+    JSON.parse fs.readFileSync(filepath, { encoding: inputEnc })
 
   @writeJSON: (filepath, data, callback) ->
     data = do ->
@@ -53,7 +53,7 @@ module.exports = class Common
           callback null, data
 
   @fileExists: (path) ->
-    return false if not fs.existsSync(path)
+    return false if not fs.existsSync path
     stat = fs.lstatSync(path)
     stat.isFile() or stat.isSymbolicLink()
 
@@ -106,8 +106,8 @@ module.exports = class Common
         o[k] = obj[k]
       o
 
-    for key of clone when clone.hasOwnProperty(key)
-      clone[key] = arguments.callee.call(@, clone[key])
+    for own key of clone
+      clone[key] = arguments.callee.call @, clone[key]
 
     clone
 

@@ -2,7 +2,7 @@
 { isUri, isString, formatUri, parseUri, isObject, trim, validRegex, isRegex } = require './common'
 
 module.exports = (obj, string) ->
-  return string if not isString or not isObject obj
+  return string unless isString or isObject obj
 
   matches = null
   matchDiffs = diffAlgorithm string
@@ -81,9 +81,9 @@ diffAlgorithm = (match) ->
 
     if diffLength < differences
       matches = []
-      matches.push({ value: value, index: index })
+      matches.push { value: value, index: index }
     else if diffLength is differences
-      matches.push({ value: value, index: index })
+      matches.push { value: value, index: index }
       differences = diffLength
 
     matches
