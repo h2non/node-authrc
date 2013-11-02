@@ -119,3 +119,17 @@ describe 'authrc file discovery', ->
       it 'should be a global file path', ->
         expect(auth.isGlobalFile()).to.be.true
 
+
+    describe 'using discover() method, with existent $HOME file', ->
+      homePath = process.env[getHomeVar()]
+
+      before ->
+        setHomePath "#{__dirname}/fixtures/basic/"
+   
+      after ->
+        setHomePath(homePath)
+
+      it 'should find the file and the content exists', ->
+        expect(Authrc.discover()).to.be.equal "#{__dirname}/fixtures/basic/.authrc"
+      
+

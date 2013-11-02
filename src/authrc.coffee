@@ -46,6 +46,9 @@ module.exports = class Authrc extends Actions
   isGlobalFile: ->
     @file is getGlobalFilePath()
 
+  @discover: -> 
+    getAuthFilePath()
+
 
 getCurrentDirFilePath = (filepath) ->
   path.join(process.cwd(), authRcFile)

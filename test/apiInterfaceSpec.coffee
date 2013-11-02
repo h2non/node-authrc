@@ -55,7 +55,13 @@ describe 'API interface implementation', ->
         it 'should satisfy the update() method', ->
           expect(auth).to.respondTo('update')
 
+        it 'should satisfy the discover() static method', ->
+          expect(Authrc).to.have.property('discover')
+
     describe 'public properties', ->
+
+      it 'should satisfy the version static property', ->
+        expect(Authrc).to.have.property('version')
 
       it 'should satisfy the data property', ->
         expect(auth).to.have.property('data')
