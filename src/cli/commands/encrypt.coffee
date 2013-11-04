@@ -35,3 +35,5 @@ program
         encrypt()
     else
       encrypt()
+
+    exit 0

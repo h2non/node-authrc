@@ -35,3 +35,5 @@ program
         decrypt()
     else
       decrypt()
+
+    exit 0

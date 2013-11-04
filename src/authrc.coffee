@@ -60,9 +60,9 @@ getGlobalFilePath = ->
   path.join(getHomePath(), authRcFile)
 
 getAuthFilePath = (filepath) ->
-  # resolve explitic file path
+  # resolve explicit file path
   return filepath if filepath? and fileExists(filepath)
-  # resolve based on the path directory
+  # resolve based on the explicit directory path
   authFile = getDirFilePath(filepath)
   return authFile if fileExists(authFile)
   # resolve based on the current working directory

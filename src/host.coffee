@@ -21,11 +21,11 @@ module.exports = class Host extends Actions
     if @data then cloneDeep @data[@host] else null
 
   set: (hostObj) =>
-    return yes if not isObject hostObj
-    return yes unless hostObj.username or hostObj.password
-
-    @data[@host] = cloneDeep hostObj
-    yes
+    if isObject hostObj and hostObj.username? and hostObj.password?
+      @data[@host] = cloneDeep hostObj
+      yes
+    else
+      no
 
   exists: =>
     @data? and @host isnt null and @get()?.password?
@@ -55,7 +55,7 @@ module.exports = class Host extends Actions
     passwordObj = @get().password
     passwordObj = { value: passwordObj } if isString passwordObj
 
-    passwordObj or nullciphercip
+    passwordObj or null
 
   password: (newValue) =>
     return null unless @exists()
@@ -113,6 +113,13 @@ module.exports = class Host extends Actions
       username: username,
       password: password
     }
+
+  copy: (newHostStr) =>
+    if @exists() and isString newHostStr
+      @data[newHostStr] = cloneDeep hostObj
+      yes 
+    else
+      no
 
   authUrl: =>
     return @search unless auth = @auth()

@@ -40,4 +40,4 @@ program
       echo password
 
     echo host.cipher() if options.cipher and host.encrypted()
-    
+    exit 0
