@@ -1,5 +1,9 @@
 ## Changelog
 
+- 0.1.4 `04.11.2013`
+
+  * Added copy() method
+
 - 0.1.3 `01.11.2013`
 
   * Added copy command to CLI

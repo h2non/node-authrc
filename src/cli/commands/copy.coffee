@@ -24,6 +24,6 @@ program
 
     exit 0, "Host '#{search}' not found in #{filepath}" unless host.exists()
 
-    auth.add newhost, host.get()
+    host.copy newhost
     auth.save ->
       exit 0, "host credentials copied successfully in #{filepath}".green

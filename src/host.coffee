@@ -21,7 +21,7 @@ module.exports = class Host extends Actions
     if @data then cloneDeep @data[@host] else null
 
   set: (hostObj) =>
-    if isObject hostObj and hostObj.username? and hostObj.password?
+    if isObject(hostObj) and hostObj.username? and hostObj.password?
       @data[@host] = cloneDeep hostObj
       yes
     else
@@ -115,8 +115,8 @@ module.exports = class Host extends Actions
     }
 
   copy: (newHostStr) =>
-    if @exists() and isString newHostStr
-      @data[newHostStr] = cloneDeep hostObj
+    if @exists() and not @data[newHostStr] and isString(newHostStr)
+      @data[newHostStr] = cloneDeep @host
       yes 
     else
       no

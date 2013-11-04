@@ -407,6 +407,15 @@ auth.host('my.server.org').set({
 });
 ```
 
+#### copy(string)
+
+Copy the current `host` credentials to another `host`
+
+```javascript
+auth.host('my.server.org').copy('new.org.org');
+auth.host('new.server.org').exists(); // true
+```
+
 #### remove()
 
 Remove the current host from config

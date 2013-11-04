@@ -115,7 +115,10 @@ describe 'API interface implementation', ->
         expect(host).to.respondTo('decrypt')
 
       it 'should satisfy the encrypt() method', ->
-        expect(host).to.respondTo('encrypt')    
+        expect(host).to.respondTo('encrypt')
+
+      it 'should satisfy the copy() method', ->
+        expect(host).to.respondTo('copy')  
 
     describe 'public properties', ->
 
