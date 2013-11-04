@@ -47,7 +47,7 @@ module.exports = class Authrc extends Actions
     @file is getGlobalFilePath()
 
   @discover: -> 
-    getAuthFilePath()
+    getAuthFilePath() or null
 
 
 getCurrentDirFilePath = (filepath) ->
