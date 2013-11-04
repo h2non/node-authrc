@@ -3,13 +3,15 @@
 module.exports = class
   
   @helpCommands: ->
-    echo 'Type --help to see other available commands'
+    echo 'Type --help to see the options available'
 
   @fileNotFound: (filepath) =>
     echo ".authrc file not found".red
     echo "Be sure the file exists in: #{filepath}"
-    echo 'You can pass the --path argument with your file path'
-    echo 'Use the "create" command to create a new .authrc file'
+    echo ''
+    echo 'You can pass file path using the --path argument'
+    echo 'Or use the global file using the --global argument'
+    echo 'Aditionally you can use the "create" command to create a new file'
     echo ''
     @helpCommands()
 
