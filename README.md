@@ -412,7 +412,7 @@ auth.host('my.server.org').set({
 Copy the current `host` credentials to another `host`
 
 ```javascript
-auth.host('my.server.org').copy('new.org.org');
+auth.host('my.server.org').copy('new.server.org');
 auth.host('new.server.org').exists(); // true
 ```
 
