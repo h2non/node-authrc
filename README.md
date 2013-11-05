@@ -95,7 +95,7 @@ $ authrc --help
 
 ```javascript
 var Authrc = require('authrc');
-var auth = new Authrc('file/to/.authrc');
+var auth = new Authrc('path/to/.authrc'); 
 var host;
 
 if (auth.exists()) {
@@ -125,7 +125,7 @@ For more usage examples, see the [tests](https://github.com/h2non/node-authrc/tr
 
 ```js
 var Authrc = require('authrc');
-var auth = new Authrc('file/to/.authrc');
+var auth = new Authrc('path/to/.authrc');
 ```
 
 Get the current `authrc` supported spec version implementation
