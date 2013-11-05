@@ -134,6 +134,12 @@ Get the current `authrc` supported spec version implementation
 Authrc.version // '0.1'
 ```
 
+Discover the `.authrc` file path on the system. Return `null` if not found.
+
+```js
+Authrc.discover(); // '/home/user/.authrc'
+```
+
 The `.authrc` file discovery search algorithm will do what follows:
 
 ```
@@ -517,8 +523,7 @@ See [CHANGELOG](https://github.com/h2non/node-authrc/blob/master/CHANGELOG.md)
 
 ## TODO
 
-- Improve the host matching algorithm for regex-like matching
-- CLI support for copy and check duplicated hosts
+- Checking duplicated hosts before create
 - Add more destructive and smoke tests
 - Add more regex tests
 - Add E2E test suite
