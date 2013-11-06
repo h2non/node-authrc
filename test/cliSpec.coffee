@@ -116,7 +116,6 @@ describe 'CLI', ->
     it 'should add a update a host in an existent .authrc file', (done) ->
 
       suppose("#{cwd}/bin/authrc", ['update', 'my.site.org'])
-        .debug(fs.createWriteStream('../../cli.log'))
         .on(/user name/).respond('john\n')
         .on(/Enter the password:/).respond('n€w_p@ssw0rd\n')
         .on(/Confirm the password/).respond('n€w_p@ssw0rd\n')
