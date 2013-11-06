@@ -1,5 +1,9 @@
 ## Changelog
 
+- 0.1.5 `06.11.2013`
+
+  * Check file already exists in `create` command
+
 - 0.1.4 `04.11.2013`
 
   * Added copy() method
