@@ -159,7 +159,7 @@ Simplified host search method, for a better API approach
 require('authrc').find('my.server.org').username();
 ```
 
-You can use this method using also the `get()` alias method
+Also is available `get()`, who do the same
 
 #### exists()
 
