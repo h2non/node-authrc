@@ -151,6 +151,16 @@ Try to find .authrc file in $HOME directory
   If it doesn’t exist, finish the process
 ```
 
+#### Authrc.find(string, [filepath])
+
+Static method for find hosts, for a simplified and better API approach
+
+```js
+require('authrc').find('my.server.org').username();
+```
+
+You can use this method using also the `get()` alias method
+
 #### exists()
 
 Return `true` if the `.authrc` file was found and it is not empty
