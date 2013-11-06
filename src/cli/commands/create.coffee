@@ -1,6 +1,6 @@
 path = require 'path'
 processes = require '../processes'
-{ createAuth, getFilePath, fileExists } = require '../commandHelper'
+{ createAuth, getFilePath, fileNotExists } = require '../commandHelper'
 { program, echo, exit } = require '../common'
 
 program
@@ -22,7 +22,7 @@ program
     options.force ?= false
     filepath = getFilePath options.path, options.global
     
-    fileExists filepath if options.force
+    fileNotExists filepath unless options.force
 
     auth = createAuth filepath
 

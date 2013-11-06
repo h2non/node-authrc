@@ -1,7 +1,7 @@
 path = require 'path'
 Authrc = require '../authrc'
 { authRcFile } = require '../constants'
-{ fileNotFound } = require './messages'
+{ fileNotFound, fileAlreadyExists } = require './messages'
 { fileExists, dirExists, exit, getHomePath } = require './common'
 
 module.exports = class 
@@ -22,6 +22,12 @@ module.exports = class
       exit 1, fileNotFound filepath
     unless path.basename(filepath) is authRcFile
       exit 1, fileNotFound filepath
+
+    filepath
+
+  @fileNotExists: (filepath) =>
+    if fileExists(filepath)
+      exit 1, fileAlreadyExists filepath
 
     filepath
   

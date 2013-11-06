@@ -153,7 +153,7 @@ Try to find .authrc file in $HOME directory
 
 #### Authrc.find(string, [filepath])
 
-Static method to find `hosts`, for a simplified and better API approach
+Simplified host search method, for a better API approach
 
 ```js
 require('authrc').find('my.server.org').username();
