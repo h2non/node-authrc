@@ -58,6 +58,12 @@ describe 'API interface implementation', ->
         it 'should satisfy the discover() static method', ->
           expect(Authrc).to.have.property('discover')
 
+        it 'should satisfy the find() static method', ->
+          expect(Authrc).to.have.property('find')
+
+        it 'should satisfy the get() static method', ->
+          expect(Authrc).to.have.property('get')
+
     describe 'public properties', ->
 
       it 'should satisfy the version static property', ->

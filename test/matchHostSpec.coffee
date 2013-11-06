@@ -3,11 +3,13 @@ Authrc = require '../lib/authrc'
 
 describe 'Match/find hosts', ->
 
+  filepath = 'test/fixtures/basic/'
+
   describe 'authrc with file path', ->
     auth = null
 
     beforeEach -> 
-      auth = new Authrc('test/fixtures/basic/')
+      auth = new Authrc(filepath)
 
     it 'should return the auth for the given hostname', ->
       host = auth.host('http://git.server.org')
@@ -109,4 +111,14 @@ describe 'Match/find hosts', ->
       it 'shoudl return the auth URL with the password properly encoded', ->
         expect(auth.host('notld/resource').authUrl())
           .to.be.equal('http://dennis:%24up%E2%82%ACr_%243crEt_%25%3F@notld/resource')
+
+    describe 'using class static methods', ->
+
+      it 'should return the auth credentials using', ->
+        host = Authrc.find('https://git.server.org', filepath)
+        
+        expect(host.exists()).to.be.true
+        expect(host.auth()).to.deep.equal
+            username: 'john'
+            password: 'unbreakablepassword'
 

@@ -49,6 +49,12 @@ module.exports = class Authrc extends Actions
   @discover: -> 
     getAuthFilePath() or null
 
+  @find: (string, filepath) ->
+    auth = new Authrc(filepath)
+    auth.find(string)
+
+  @get: Authrc.find
+
 
 getCurrentDirFilePath = (filepath) ->
   path.join(process.cwd(), authRcFile)
