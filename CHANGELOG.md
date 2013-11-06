@@ -1,8 +1,12 @@
 ## Changelog
 
-- 0.1.5 `06.11.2013`
+- 0.1.6 `06.11.2013`
 
   * Check file already exists in `create` command
+
+- 0.1.5 `05.11.2013`
+
+  * Minor bug fixes
 
 - 0.1.4 `04.11.2013`
 
