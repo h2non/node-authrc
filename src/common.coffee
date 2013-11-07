@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-{ inputEnc } = require './constants'
+{ INPUT_ENC } = require './constants'
 { parse, format } = require 'url'
 
 module.exports = class Common
@@ -37,7 +37,7 @@ module.exports = class Common
     format(object)
 
   @readJSON: (filepath) => 
-    JSON.parse fs.readFileSync(filepath, { encoding: inputEnc })
+    JSON.parse fs.readFileSync(filepath, { encoding: INPUT_ENC })
 
   @writeJSON: (filepath, data, callback) ->
     data = do ->

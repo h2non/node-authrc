@@ -2,12 +2,12 @@ path = require 'path'
 fileChange = require './lib/filechange'
 Actions = require './actions'
 Host = require './host'
-{ version, authRcFile } = require './constants'
+{ VERSION, FILENAME } = require './constants'
 { getHomePath, cloneDeep, fileExists, dirExists } = require './common'
 
 module.exports = class Authrc extends Actions
 
-  @version: version
+  @version: VERSION
   
   file: null
   data: {}
@@ -57,13 +57,13 @@ module.exports = class Authrc extends Actions
 
 
 getCurrentDirFilePath = (filepath) ->
-  path.join(process.cwd(), authRcFile)
+  path.join(process.cwd(), FILENAME)
 
 getDirFilePath = (filepath) ->
-  path.join((if dirExists(filepath) then filepath else path.dirname(filepath)), authRcFile)
+  path.join((if dirExists(filepath) then filepath else path.dirname(filepath)), FILENAME)
 
 getGlobalFilePath = ->
-  path.join(getHomePath(), authRcFile)
+  path.join(getHomePath(), FILENAME)
 
 getAuthFilePath = (filepath) ->
   # resolve explicit file path

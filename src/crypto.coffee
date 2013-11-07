@@ -1,11 +1,11 @@
 crypto = require 'crypto'
 ciphers = require './ciphers'
-{ algorithm, inputEnc, outputEnc } = require './constants'
+{ ALGORITHM, INPUT_ENC, OUTPUT_ENC } = require './constants'
 { lowerCase } = require './common'
 
 module.exports = class
 
-  @defaultCipher: algorithm
+  @defaultCipher: ALGORITHM
 
   @ciphers: Object.keys ciphers
 
@@ -15,10 +15,10 @@ module.exports = class
   @getCipher: (cipher) =>
     ciphers[lowerCase(cipher)] if @cipherExists cipher
 
-  @encrypt: (data, key, cipher = algorithm) =>
+  @encrypt: (data, key, cipher = ALGORITHM) =>
     cipher = crypto.createCipher @getCipher(cipher), key
-    cipher.update(data, inputEnc, outputEnc) + cipher.final outputEnc
+    cipher.update(data, INPUT_ENC, OUTPUT_ENC) + cipher.final OUTPUT_ENC
 
-  @decrypt: (data, key, cipher = algorithm) =>
+  @decrypt: (data, key, cipher = ALGORITHM) =>
     decipher = crypto.createDecipher @getCipher(cipher), key
-    decipher.update(data, outputEnc, inputEnc) + decipher.final inputEnc
+    decipher.update(data, OUTPUT_ENC, INPUT_ENC) + decipher.final INPUT_ENC

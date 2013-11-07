@@ -1,7 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 { expect } = require '../node_modules/chai/chai'
-{ authRcFile } = require '../lib/constants'
+{ FILENAME } = require '../lib/constants'
 Authrc = require '../lib/authrc'
 
 describe 'authrc file discovery', ->
@@ -14,7 +14,7 @@ describe 'authrc file discovery', ->
     process.env[getHomeVar()] = path
 
   before ->
-    cwdFile = path.join(process.cwd(), authRcFile)
+    cwdFile = path.join(process.cwd(), FILENAME)
     fs.unlinkSync(cwdFile) if fs.existsSync(cwdFile)
 
   describe 'using explicit file path with relative path', ->

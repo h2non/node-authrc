@@ -1,7 +1,7 @@
 Actions = require './actions'
 crypto = require './crypto'
 hostMatch = require './hostmatch'
-{ algorithm } = require './constants'
+{ ALGORITHM } = require './constants'
 { parseUri, formatUri, isObject, cloneDeep, getEnvVar, isRegex, validRegex, isString, trim, lowerCase } = require './common'
 
 module.exports = class Host extends Actions
@@ -92,7 +92,7 @@ module.exports = class Host extends Actions
     if password.cipher
       cipher = trim lowerCase(password.cipher)
     else if password.encrypted is true
-      cipher = algorithm
+      cipher = ALGORITHM
 
     cipher or null
 
@@ -145,22 +145,22 @@ module.exports = class Host extends Actions
   # @throws Error, TypeError
   decrypt: (key = @passwordKey(), cipher = @cipher()) =>
     throw new Error('The password value do not exists') unless @exists()
-    throw new TypeError('Unsupported cipher algorithm: ' + cipher) unless crypto.cipherExists cipher
+    throw new TypeError("Unsupported cipher algorithm: #{cipher}") unless crypto.cipherExists cipher
     return @password() if not @isEncrypted()
     throw new TypeError('Missing required key argument') if not isString key
 
     crypto.decrypt @password(), key, cipher
 
   # @throws Error, TypeError
-  encrypt: (key = @passwordKey(), cipher = algorithm) =>
+  encrypt: (key = @passwordKey(), cipher = ALGORITHM) =>
     throw new Error('The password value do not exists') unless @exists()
-    throw new TypeError('Unsupported cipher algorithm: ' + cipher) unless crypto.cipherExists cipher
+    throw new TypeError("Unsupported cipher algorithm: #{cipher}") unless crypto.cipherExists cipher
     throw new Error('The password is already encrypted') if @isEncrypted()
     throw new TypeError('Missing required key argument') if not isString key
 
     password = crypto.encrypt @password(), key, cipher
     @setPassword
-      algorithm: cipher
+      cipher: cipher
       value: password
 
     @

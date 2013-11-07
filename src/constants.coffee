@@ -1,6 +1,6 @@
 module.exports = 
-  version: '0.1'
-  authRcFile: '.authrc'
-  inputEnc: 'utf8'
-  outputEnc: 'hex'
-  algorithm: 'aes128'
+  VERSION: '0.1'
+  FILENAME: '.authrc'
+  INPUT_ENC: 'utf8'
+  OUTPUT_ENC: 'hex'
+  ALGORITHM: 'aes128'

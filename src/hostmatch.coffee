@@ -2,7 +2,7 @@
 { isUri, isString, formatUri, parseUri, isObject, trim, validRegex, isRegex } = require './common'
 
 module.exports = (obj, string) ->
-  return string unless isString or isObject obj
+  return string unless isString(string) or isObject obj
 
   matches = null
   matchDiffs = diffAlgorithm string
