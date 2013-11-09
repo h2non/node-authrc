@@ -1,6 +1,6 @@
 Actions = require './actions'
 crypto = require './crypto'
-hostMatch = require './hostmatch'
+hostMatch = require './hostMatch'
 { ALGORITHM } = require './constants'
 { parseUri, formatUri, isObject, cloneDeep, getEnvVar, isRegex, validRegex, isString, trim, lowerCase } = require './common'
 
