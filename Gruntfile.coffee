@@ -43,12 +43,6 @@ module.exports = (grunt) ->
         src: ['**/*.coffee']
         dest: 'lib/'
         ext: '.js'
-      test:
-        expand: true
-        cwd: 'src/test/'
-        src: ['**/*.coffee']
-        dest: 'test/'
-        ext: '.js'
         
     mochacli:
       options:
