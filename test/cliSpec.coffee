@@ -1,6 +1,6 @@
 fs = require 'fs'
 suppose = require 'suppose'
-{ expect } = require '../node_modules/chai/chai'
+{ expect } = require 'chai'
 Authrc = require '../lib/authrc'
 
 cwd = process.cwd()

@@ -1,5 +1,5 @@
 fs = require 'fs'
-{ expect } = require '../node_modules/chai/chai'
+{ expect } = require 'chai'
 Authrc = require '../lib/authrc'
 
 describe 'save/update data in file', ->

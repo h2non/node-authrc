@@ -1,4 +1,4 @@
-{ expect } = require '../node_modules/chai/chai'
+{ expect } = require 'chai'
 fs = require 'fs'
 Authrc = require '../lib/authrc'
 

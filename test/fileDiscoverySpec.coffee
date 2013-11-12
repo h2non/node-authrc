@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-{ expect } = require '../node_modules/chai/chai'
+{ expect } = require 'chai'
 { FILENAME } = require '../lib/constants'
 Authrc = require '../lib/authrc'
 
